@@ -7,19 +7,33 @@
     <title>GekkoTeca - Pagamento</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Oculta a barra de scroll para ficar com um aspeto de app real */
+        .mobile-content::-webkit-scrollbar {
+            display: none;
+        }
+        .mobile-content {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        @keyframes popIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+    </style>
 </head>
 <body class="home-body">
 
     <div class="mobile-simulator">
-        <div class="mobile-content" style="padding-bottom: 0;">
-            
-            <header class="home-navbar" style="display: flex; align-items: center; padding: 1rem;">
-                <a href="{% url 'carrinho_view' %}" style="color: white; text-decoration: none; font-size: 1.2rem; margin-right: 1rem;">&#8592;</a>
-                <h1 style="color: white; font-size: 1.1rem; margin: 0; font-weight: 500;">/pagamento</h1>
-            </header>
+        <div class="mobile-content" style="display: flex; flex-direction: column; padding: 0; height: 100%; overflow-x: hidden;">
 
-            <main class="home-container" style="padding-top: 2rem;">
-                
+            <div style="background-color: white; padding: 1.5rem 1.5rem 2rem 1.5rem;">
+
+                <header style="display: flex; align-items: center; margin-bottom: 2rem;">
+                    <a href="{% url 'carrinho_view' %}" style="color: #2c2c2c; text-decoration: none; font-size: 1.5rem; margin-right: 1rem; line-height: 1;">&#8592;</a>
+                    <h1 style="color: #2c2c2c; font-size: 1.1rem; margin: 0; font-weight: 500;">/pagamento</h1>
+                </header>
+
                 <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem;">
                     <div style="width: 50px; height: 50px; background-color: #0a2e1f; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
                         <img src="{% static 'IMG/livraria1.png' %}" alt="Livraria" style="width: 40px; border-radius: 50%;">
@@ -32,19 +46,37 @@
 
                 <div style="background-color: #d1edb0; padding: 1rem; border-radius: 12px; margin-bottom: 1.5rem;">
                     <p style="font-size: 0.75rem; color: #333; text-align: center; margin-bottom: 0.5rem; font-weight: 500;">forma de pagamento</p>
-                    <div style="background: white; padding: 0.6rem 1rem; border-radius: 8px; display: flex; align-items: center; justify-content: space-between; cursor: pointer;">
-                        <div style="display: flex; align-items: center; gap: 0.8rem;">
+
+                    <div id="payment-selector" style="background: white; padding: 0.6rem 1rem; border-radius: 8px; display: flex; align-items: center; justify-content: space-between; cursor: pointer;">
+                        <div id="payment-content" style="display: flex; align-items: center; gap: 0.8rem;">
+                            <span style="font-size: 0.85rem; font-weight: 500; color: #2c2c2c;">vazio</span>
+                        </div>
+                        <span id="payment-arrow" style="color: #666; transition: transform 0.2s; font-size: 1.2rem;">›</span>
+                    </div>
+
+                    <div id="payment-options" style="display: none; background: white; border-radius: 8px; margin-top: 0.5rem; overflow: hidden;">
+                        <div class="pay-option" style="padding: 0.8rem 1rem; border-bottom: 1px solid #eee; display: flex; align-items: center; gap: 0.8rem; cursor: pointer;">
                             <div style="width: 28px; height: 28px; background: #1a365d; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 0.8rem; font-style: italic;">N</div>
                             <span style="font-size: 0.85rem; font-weight: 500; color: #2c2c2c;">Banco NASTER</span>
                         </div>
-                        <span style="color: #666;">›</span>
+                        <div class="pay-option" style="padding: 0.8rem 1rem; border-bottom: 1px solid #eee; display: flex; align-items: center; gap: 0.8rem; cursor: pointer;">
+                            <div style="width: 28px; height: 28px; background: #32bcad; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 0.8rem;">P</div>
+                            <span style="font-size: 0.85rem; font-weight: 500; color: #2c2c2c;">Pix</span>
+                        </div>
+                        <div class="pay-option" style="padding: 0.8rem 1rem; display: flex; align-items: center; gap: 0.8rem; cursor: pointer;">
+                            <div style="width: 28px; height: 28px; background: #e0e0e0; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #333; font-size: 0.8rem;">💳</div>
+                            <span style="font-size: 0.85rem; font-weight: 500; color: #2c2c2c;">Cartão de Crédito</span>
+                        </div>
                     </div>
                 </div>
 
                 <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 2rem;">
                     <span style="font-size: 1.2rem;">🎟️</span>
-                    <span style="font-size: 0.9rem; font-weight: 500; color: #2c2c2c;">Cupom <span style="font-size: 0.6rem; color: #888; display: block; line-height: 0.5;">3 disponíveis</span></span>
-                    <span style="font-size: 0.8rem; color: #8bc34a; cursor: pointer; margin-left: 0.5rem;">adicionar</span>
+                    <div style="display: flex; align-items: center; gap: 0.3rem;">
+                        <span style="font-size: 0.9rem; font-weight: 500; color: #2c2c2c;">Cupom</span>
+                        <span style="font-size: 0.6rem; color: #888; margin-top: 2px;">3 disponíveis</span>
+                    </div>
+                    <span style="font-size: 0.8rem; color: #8bc34a; cursor: pointer; margin-left: auto;">adicionar</span>
                 </div>
 
                 <h3 style="font-size: 1.3rem; margin-bottom: 1rem; font-weight: 500; color: #2c2c2c;">Resumo de valores</h3>
@@ -65,17 +97,95 @@
                     <span>Total</span>
                     <span>R$ {{ total|floatformat:2 }}</span>
                 </div>
+            </div>
 
-            </main>
-            
-            <div style="position: absolute; bottom: 0; left: 0; width: 100%; background-color: #d1edb0; padding: 1.5rem; border-top: 1px solid #c5e1a5;">
-                <p style="font-size: 1.1rem; font-weight: 500; color: #2c2c2c; margin-bottom: 1rem;">Preço total: R$ {{ total|floatformat:2 }}</p>
-                <button style="width: 100%; background-color: #8bc34a; color: white; border: none; padding: 1rem; border-radius: 12px; font-weight: 500; font-size: 1.1rem; cursor: pointer;">
-                    Fazer pedido
-                </button>
+            <div style="background-color: #d1edb0; flex-grow: 1; padding: 2rem 1.5rem; display: flex; flex-direction: column;">
+                
+                <div id="payment-error" style="display: none; background-color: #d86d2b; color: white; text-align: center; padding: 0.8rem; border-radius: 8px; font-weight: 600; font-size: 0.8rem; margin-bottom: 1.5rem;">
+                    ADICIONE UMA FORMA DE PAGAMENTO VALIDA!
+                </div>
+
+                <div style="margin-top: auto;">
+                    <p style="font-size: 1.2rem; font-weight: 500; color: #2c2c2c; margin-bottom: 1rem;">Preço total: R$ {{ total|floatformat:2 }}</p>
+                    <button id="btn-pedido" style="width: 100%; background-color: #8bc34a; color: white; border: none; padding: 1rem; border-radius: 12px; font-weight: 500; font-size: 1.1rem; cursor: pointer; transition: background 0.2s;">
+                        Fazer pedido
+                    </button>
+                </div>
             </div>
 
         </div> 
+
+        <div id="success-popup" style="display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 1000; align-items: center; justify-content: center;">
+            <div style="background: white; padding: 2.5rem 2rem; border-radius: 16px; text-align: center; width: 80%; box-shadow: 0 10px 25px rgba(0,0,0,0.2); animation: popIn 0.3s forwards ease-out;">
+                <div style="width: 70px; height: 70px; background: #8bc34a; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem;">
+                    <span style="color: white; font-size: 2.5rem; line-height: 1;">✓</span>
+                </div>
+                <h3 style="color: #2c2c2c; margin-bottom: 0.5rem; font-weight: 700; font-size: 1.2rem;">Pagamento Confirmado!</h3>
+                <p style="color: #666; font-size: 0.85rem; line-height: 1.4;">O seu pedido foi realizado com sucesso e já está a ser preparado.</p>
+            </div>
+        </div>
+
     </div> 
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const paymentSelector = document.getElementById('payment-selector');
+            const paymentContent = document.getElementById('payment-content');
+            const paymentOptions = document.getElementById('payment-options');
+            const paymentArrow = document.getElementById('payment-arrow');
+            const btnPedido = document.getElementById('btn-pedido');
+            const paymentError = document.getElementById('payment-error');
+            const successPopup = document.getElementById('success-popup');
+            const payOptionsList = document.querySelectorAll('.pay-option');
+            
+            let paymentSelected = false;
+
+            // Abre e fecha o menu de opções de pagamento
+            paymentSelector.addEventListener('click', () => {
+                if (paymentOptions.style.display === 'none') {
+                    paymentOptions.style.display = 'block';
+                    paymentArrow.style.transform = 'rotate(90deg)';
+                } else {
+                    paymentOptions.style.display = 'none';
+                    paymentArrow.style.transform = 'rotate(0deg)';
+                }
+            });
+
+            // Lógica ao escolher um método de pagamento
+            payOptionsList.forEach(option => {
+                option.addEventListener('click', () => {
+                    // Puxa o visual do botão selecionado para dentro da caixa principal
+                    paymentContent.innerHTML = option.innerHTML;
+                    
+                    // Esconde a lista novamente
+                    paymentOptions.style.display = 'none';
+                    paymentArrow.style.transform = 'rotate(0deg)';
+                    
+                    // Valida que foi selecionado para o erro não disparar
+                    paymentSelected = true;
+                    paymentError.style.display = 'none';
+                });
+            });
+
+            // Lógica ao clicar no botão "Fazer pedido"
+            btnPedido.addEventListener('click', (e) => {
+                if (!paymentSelected) {
+                    e.preventDefault();
+                    // Exibe a barra cor-de-laranja
+                    paymentError.style.display = 'block';
+                    paymentError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                } else {
+                    e.preventDefault();
+                    // Dispara o Pop-up na tela
+                    successPopup.style.display = 'flex';
+                    
+                    // Aguarda 1 segundo (1000ms) e redireciona de volta para a Home
+                    setTimeout(() => {
+                        window.location.href = "{% url 'home' %}";
+                    }, 1000); 
+                }
+            });
+        });
+    </script>
 </body>
 </html>
