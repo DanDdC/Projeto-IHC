@@ -89,29 +89,30 @@
             <h2 class="home-section-title">Livrarias Próximas</h2>
             <div class="store-grid">
                 
+                {% for livraria in livrarias %}
                 <div class="store-card">
-                    <img src="{% static 'IMG/livraria1.png' %}" alt="Gekko Point" class="store-img">
+                    {% if livraria.imagem %}
+                        <img src="{{ livraria.imagem.url }}" alt="{{ livraria.nome }}" class="store-img">
+                    {% else %}
+                        <img src="{% static 'IMG/livraria1.png' %}" alt="{{ livraria.nome }}" class="store-img">
+                    {% endif %}
+                    
                     <div class="store-content">
-                        <h3 class="store-name">Gekko Point Centro</h3>
-                        <p class="store-address">Av. Gekko, 123 - Boa Vista</p>
+                        <h3 class="store-name">{{ livraria.nome }}</h3>
+                        <p class="store-address">{{ livraria.endereco }}</p>
                         <div class="store-footer">
-                            <span class="store-distance">5 km</span>
-                            <span class="store-status open">Aberto</span>
+                            <span class="store-distance">{{ livraria.distancia_km }} km</span>
+                            {% if livraria.status_aberto %}
+                                <span class="store-status open">Aberto</span>
+                            {% else %}
+                                <span class="store-status" style="color: #ff9999;">Fechado</span>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
-
-                <div class="store-card">
-                    <img src="{% static 'IMG/livraria1.png' %}" alt="Livraria Imperatriz" class="store-img">
-                    <div class="store-content">
-                        <h3 class="store-name">Livraria Imperatriz</h3>
-                        <p class="store-address">Shopping Recife - Boa Viagem</p>
-                        <div class="store-footer">
-                            <span class="store-distance">12 km</span>
-                            <span class="store-status open">Aberto</span>
-                        </div>
-                    </div>
-                </div>
+                {% empty %}
+                    <p style="color: #fff;">Nenhuma livraria cadastrada ainda.</p>
+                {% endfor %}
 
             </div>
         </section>
@@ -120,47 +121,20 @@
             <h2 class="home-section-title">Disponíveis para Aluguel</h2>
             <div class="book-grid">
                 
+                {% for livro in livros_aluguel %}
                 <div class="book-card">
-                    <img src="{% static 'IMG/L_rezende.png' %}" alt="Livro Rezende" class="book-img">
-                    <h3 class="book-title">Dois Mundos</h3>
-                    <p class="book-author">RezendeEvil</p>
-                    <p class="book-price">R$ 15,90</p>
+                    {% if livro.capa %}
+                        <img src="{{ livro.capa.url }}" alt="{{ livro.titulo }}" class="book-img">
+                    {% else %}
+                        <img src="{% static 'IMG/L_rezende.png' %}" alt="{{ livro.titulo }}" class="book-img">
+                    {% endif %}
+                    <h3 class="book-title">{{ livro.titulo }}</h3>
+                    <p class="book-author">{{ livro.autor }}</p>
+                    <p class="book-price">R$ {{ livro.preco_aluguel }}</p>
                 </div>
-
-                <div class="book-card">
-                    <img src="{% static 'IMG/L_rezende.png' %}" alt="Livro Rezende" class="book-img">
-                    <h3 class="book-title">De Volta ao Jogo</h3>
-                    <p class="book-author">RezendeEvil</p>
-                    <p class="book-price">R$ 12,90</p>
-                </div>
-                
-                <div class="book-card">
-                    <img src="{% static 'IMG/L_rezende.png' %}" alt="Livro Rezende" class="book-img">
-                    <h3 class="book-title">Jogada Final</h3>
-                    <p class="book-author">RezendeEvil</p>
-                    <p class="book-price">R$ 18,90</p>
-                </div>
-
-                <div class="book-card">
-                    <img src="{% static 'IMG/L_rezende.png' %}" alt="Livro Rezende" class="book-img">
-                    <h3 class="book-title">A Nova Missão</h3>
-                    <p class="book-author">RezendeEvil</p>
-                    <p class="book-price">R$ 14,90</p>
-                </div>
-                
-                <div class="book-card">
-                    <img src="{% static 'IMG/L_rezende.png' %}" alt="Livro Rezende" class="book-img">
-                    <h3 class="book-title">O Começo</h3>
-                    <p class="book-author">RezendeEvil</p>
-                    <p class="book-price">R$ 11,90</p>
-                </div>
-
-                <div class="book-card">
-                    <img src="{% static 'IMG/L_rezende.png' %}" alt="Livro Rezende" class="book-img">
-                    <h3 class="book-title">A Fuga</h3>
-                    <p class="book-author">RezendeEvil</p>
-                    <p class="book-price">R$ 16,90</p>
-                </div>
+                {% empty %}
+                    <p style="color: #fff;">Nenhum livro disponível no momento.</p>
+                {% endfor %}
 
             </div>
         </section>
