@@ -134,4 +134,50 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+    // LÓGICA DO CARROSSEL DE COLEÇÕES COM BOLINHAS
+    const bannerGrid = document.getElementById('bannerGrid');
+    const dots = document.querySelectorAll('#paginationDots .dot');
+
+    if (bannerGrid && dots.length > 0) {
+        const cards = bannerGrid.querySelectorAll('.banner-card');
+
+        // Clicar na bolinha faz rolar para a imagem certa
+        dots.forEach(dot => {
+            dot.addEventListener('click', () => {
+                const index = parseInt(dot.getAttribute('data-index'));
+                if (cards[index]) {
+                    const cardLeft = cards[index].offsetLeft;
+                    const containerOffset = bannerGrid.offsetLeft;
+                    const scrollPosition = cardLeft - containerOffset - (bannerGrid.clientWidth / 2) + (cards[index].clientWidth / 2);
+                    
+                    bannerGrid.scrollTo({
+                        left: scrollPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Deslizar o ecrã atualiza a bolinha acesa
+        bannerGrid.addEventListener('scroll', () => {
+            let currentIndex = 0;
+            let minDiff = Infinity;
+
+            cards.forEach((card, index) => {
+                const cardCenter = card.offsetLeft + (card.clientWidth / 2);
+                const containerCenter = bannerGrid.scrollLeft + (bannerGrid.clientWidth / 2);
+                const diff = Math.abs(cardCenter - containerCenter);
+
+                if (diff < minDiff) {
+                    minDiff = diff;
+                    currentIndex = index;
+                }
+            });
+
+            dots.forEach(dot => dot.classList.remove('active'));
+            if (dots[currentIndex]) {
+                dots[currentIndex].classList.add('active');
+            }
+        });
+    }
 });

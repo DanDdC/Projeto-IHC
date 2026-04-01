@@ -270,32 +270,76 @@ body.home-body {
     margin-bottom: 1rem;
 }
 
-/* --- GRID 1: COLEÇÕES (Scroll Horizontal) --- */
+/* --- GRID 1: COLEÇÕES (Scroll Horizontal com Snap e Bolinhas) --- */
 .banner-grid {
     display: flex;
     gap: 1rem;
     overflow-x: auto;
     scrollbar-width: none;
+    scroll-snap-type: x mandatory; /* Faz o deslizar "prender" perfeitamente num cartão */
+    scroll-behavior: smooth;
 }
 .banner-grid::-webkit-scrollbar { display: none; }
 
 .banner-card {
-    flex: 0 0 280px; /* Largura fixa para permitir scroll */
+    flex: 0 0 280px; 
     border-radius: 12px;
     overflow: hidden;
     height: 140px;
+    scroll-snap-align: center; /* Ponto de trava */
 }
 .banner-img { width: 100%; height: 100%; object-fit: cover; }
+
+/* Estilo das Bolinhas de Paginação */
+.pagination-dots {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 12px;
+}
+
+.dot {
+    height: 8px;
+    width: 8px;
+    background-color: #e2e8f0; /* Bolinha apagada (cinza claro) */
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.dot.active {
+    background-color: #8bc34a; /* Bolinha acesa (verde) */
+    width: 20px; /* Estica um bocadinho a ativa (efeito muito comum em mobile) */
+    border-radius: 4px;
+}
 
 /* --- GRID 2: CATEGORIAS (Scroll Horizontal) --- */
 .category-grid {
     display: flex;
     gap: 1rem;
-    overflow-x: auto;
-    scrollbar-width: none;
-    padding-bottom: 0.5rem;
+    overflow-x: auto; /* Habilita a rolagem nativa */
+    padding-bottom: 12px; /* Dá espaço para a barra respirar sem encostar no texto */
+    
+    /* Design da barra para o Firefox */
+    scrollbar-width: thin;
+    scrollbar-color: #8bc34a transparent;
 }
-.category-grid::-webkit-scrollbar { display: none; }
+
+/* Design da barra para Chrome, Safari e Edge */
+.category-grid::-webkit-scrollbar {
+    height: 6px; /* Uma barra fina e elegante */
+    display: block; /* Garante que ela seja exibida */
+}
+
+.category-grid::-webkit-scrollbar-track {
+    background: #f1f5f9; /* Uma trilha cinza bem sutil no fundo */
+    border-radius: 10px;
+}
+
+.category-grid::-webkit-scrollbar-thumb {
+    background: #8bc34a; /* O "puxador" no mesmo verde da sua navbar */
+    border-radius: 10px;
+}
 
 .category-card {
     flex: 0 0 auto;
@@ -303,6 +347,7 @@ body.home-body {
     flex-direction: column;
     align-items: center;
     gap: 0.5rem;
+    cursor: pointer; /* Garante que o mouse mostre que é clicável */
 }
 
 .category-img-box {
@@ -315,6 +360,7 @@ body.home-body {
     align-items: center;
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
+
 .category-img-box img { width: 40px; height: 40px; object-fit: contain; }
 .category-name { font-size: 0.75rem; color: #2c2c2c; font-weight: 500; }
 
@@ -323,16 +369,37 @@ body.home-body {
     display: flex;
     gap: 1rem;
     overflow-x: auto;
-    scrollbar-width: none;
+    padding-bottom: 12px; /* Dá espaço para a barra respirar */
+    
+    /* Design da barra para o Firefox */
+    scrollbar-width: thin;
+    scrollbar-color: #8bc34a transparent;
 }
-.store-grid::-webkit-scrollbar { display: none; }
+
+/* Design da barra para Chrome, Safari e Edge */
+.store-grid::-webkit-scrollbar {
+    height: 6px;
+    display: block;
+}
+
+.store-grid::-webkit-scrollbar-track {
+    background: #f1f5f9;
+    border-radius: 10px;
+}
+
+.store-grid::-webkit-scrollbar-thumb {
+    background: #8bc34a;
+    border-radius: 10px;
+}
 
 .store-card {
     flex: 0 0 200px;
     display: flex;
     align-items: center; 
     gap: 0.8rem; 
+    cursor: pointer; /* Mostra a mãozinha de clique */
 }
+
 .store-img { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; }
 .store-content { flex: 1; }
 .store-name { font-weight: 600; font-size: 0.85rem; color: #2c2c2c; margin-bottom: 0.1rem; }
@@ -344,13 +411,34 @@ body.home-body {
     display: flex;
     gap: 1rem;
     overflow-x: auto;
-    scrollbar-width: none;
+    padding-bottom: 12px; /* Dá espaço para a barra respirar */
+    
+    /* Design da barra para o Firefox */
+    scrollbar-width: thin;
+    scrollbar-color: #8bc34a transparent;
 }
-.book-grid::-webkit-scrollbar { display: none; }
+
+/* Design da barra para Chrome, Safari e Edge */
+.book-grid::-webkit-scrollbar {
+    height: 6px;
+    display: block;
+}
+
+.book-grid::-webkit-scrollbar-track {
+    background: #f1f5f9;
+    border-radius: 10px;
+}
+
+.book-grid::-webkit-scrollbar-thumb {
+    background: #8bc34a;
+    border-radius: 10px;
+}
 
 .book-card {
     flex: 0 0 100px; /* Capas mais pequenas para caberem várias */
+    cursor: pointer; /* Mostra a mãozinha de clique */
 }
+
 .book-img {
     width: 100%;
     aspect-ratio: 2/3; 
