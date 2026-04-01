@@ -185,13 +185,13 @@
                             // Aguarda 1 segundo (1000ms) com o pop-up na tela
                             setTimeout(() => {
                                 // Redireciona de volta para a Home (e o carrinho já estará vazio!)
-                                window.location.href = "{% url 'home' %}";
+                                window.location.href = "{% url 'entrega' %}";
                             }, 1000); 
                         })
                         .catch(error => {
                             console.error("Erro ao limpar carrinho:", error);
                             // Redireciona mesmo em caso de erro para não travar o ecrã
-                            window.location.href = "{% url 'home' %}";
+                            window.location.href = "{% url 'entrega' %}";
                         });
                 }
             });

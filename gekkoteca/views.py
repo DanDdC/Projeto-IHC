@@ -108,3 +108,6 @@ def limpar_carrinho_view(request):
         del request.session['carrinho']
         request.session.modified = True
     return JsonResponse({'status': 'sucesso'})
+
+def entrega_view(request):
+    return render(request, 'entrega.html')

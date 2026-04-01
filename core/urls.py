@@ -13,7 +13,8 @@ urlpatterns = [
     path('carrinho/add/<int:livro_id>/', views.add_carrinho, name='add_carrinho'),
     path('carrinho/', views.carrinho_view, name='carrinho_view'),
     path('pagamento/', views.pagamento_view, name='pagamento'),
-    path('carrinho/limpar/', views.limpar_carrinho_view, name='limpar_carrinho'), # <-- NOVA ROTA AQUI
+    path('carrinho/limpar/', views.limpar_carrinho_view, name='limpar_carrinho'),
+    path('entrega/', views.entrega_view, name='entrega'),
 ]
 
 if settings.DEBUG:

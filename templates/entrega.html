@@ -1,0 +1,123 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GekkoTeca - Entrega</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .mobile-content::-webkit-scrollbar { display: none; }
+        .mobile-content { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        /* Animação para a barra de progresso (10 segundos) */
+        @keyframes loadingBar {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+        
+        @keyframes popIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .pulsing-dot {
+            width: 12px; height: 12px; background-color: #8bc34a; border-radius: 50%;
+            box-shadow: 0 0 0 0 rgba(139, 195, 74, 0.7);
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(139, 195, 74, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(139, 195, 74, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(139, 195, 74, 0); }
+        }
+    </style>
+</head>
+<body class="home-body">
+
+    <div class="mobile-simulator">
+        <div class="mobile-content" style="display: flex; flex-direction: column; padding: 0; height: 100%; background-color: #f8f9fa;">
+
+            <header style="background-color: white; padding: 1.5rem; display: flex; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
+                <h1 style="color: #2c2c2c; font-size: 1.2rem; margin: 0; font-weight: 600; width: 100%; text-align: center;">Acompanhar Pedido</h1>
+            </header>
+
+            <main style="flex-grow: 1; padding: 1.5rem; display: flex; flex-direction: column;">
+                
+                <div style="background-color: #e2e8f0; height: 250px; border-radius: 16px; margin-bottom: 2rem; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center;">
+                    <span style="font-size: 4rem; opacity: 0.2; position: absolute;">🗺️</span>
+                    
+                    <div style="position: absolute; display: flex; flex-direction: column; align-items: center; gap: 0.5rem;">
+                        <span style="font-size: 2rem;">🛵</span>
+                        <div class="pulsing-dot"></div>
+                    </div>
+                </div>
+
+                <div style="background: white; border-radius: 16px; padding: 1.5rem; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+                    <h2 id="status-title" style="font-size: 1.1rem; color: #2c2c2c; margin-bottom: 0.5rem;">Pedido a caminho!</h2>
+                    <p id="status-desc" style="font-size: 0.85rem; color: #666; margin-bottom: 1.5rem;">A livraria já enviou o seu livro. Chegará em breve.</p>
+
+                    <div style="background-color: #eee; height: 8px; border-radius: 4px; overflow: hidden; margin-bottom: 1rem;">
+                        <div style="background-color: #8bc34a; height: 100%; width: 0%; animation: loadingBar 10s linear forwards;"></div>
+                    </div>
+                    
+                    <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: #888; font-weight: 500;">
+                        <span>0:00</span>
+                        <span>0:10</span>
+                    </div>
+                </div>
+
+            </main>
+            
+            <nav class="bottom-nav">
+                <a href="{% url 'home' %}" class="nav-item"><span style="font-size: 20px;">🏠</span>Início</a>
+                <a href="#" class="nav-item"><span style="font-size: 20px;">📚</span>Meu Acervo</a>
+                <a href="{% url 'carrinho_view' %}" class="nav-item"><span style="font-size: 20px;">🛒</span>Carrinho</a>
+                <a href="#" class="nav-item active"><span style="font-size: 20px;">🛵</span>Pedidos</a>
+                <a href="#" class="nav-item"><span style="font-size: 20px;">👤</span>Perfil</a>
+            </nav>
+
+        </div> 
+
+        <div id="delivery-success-popup" style="display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 1000; align-items: center; justify-content: center;">
+            <div style="background: white; padding: 2.5rem 2rem; border-radius: 16px; text-align: center; width: 85%; box-shadow: 0 10px 25px rgba(0,0,0,0.2); animation: popIn 0.4s forwards cubic-bezier(0.175, 0.885, 0.32, 1.275);">
+                <div style="font-size: 4rem; margin-bottom: 1rem; line-height: 1;">📖</div>
+                <h3 style="color: #2c2c2c; margin-bottom: 0.5rem; font-weight: 700; font-size: 1.3rem;">Entrega Concluída!</h3>
+                <p style="color: #666; font-size: 0.9rem; line-height: 1.4; margin-bottom: 1.5rem;">O seu livro chegou ao destino. Desejamos-lhe uma excelente leitura!</p>
+                
+                <button id="btn-voltar" style="width: 100%; background-color: #8bc34a; color: white; border: none; padding: 0.8rem; border-radius: 12px; font-weight: 600; font-size: 1rem; cursor: pointer;">
+                    Voltar ao Início
+                </button>
+            </div>
+        </div>
+
+    </div> 
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const popup = document.getElementById('delivery-success-popup');
+            const btnVoltar = document.getElementById('btn-voltar');
+            const statusTitle = document.getElementById('status-title');
+            const statusDesc = document.getElementById('status-desc');
+
+            // Muda o texto a meio do tempo para dar mais realismo
+            setTimeout(() => {
+                statusTitle.innerText = "Quase lá...";
+                statusDesc.innerText = "O entregador está virando a esquina da sua rua.";
+            }, 5000); // 5 segundos
+
+            // Dispara o Pop-up após 10 segundos
+            setTimeout(() => {
+                popup.style.display = 'flex';
+            }, 10000); // 10 segundos
+
+            // Ação do botão para voltar para a Home
+            btnVoltar.addEventListener('click', () => {
+                window.location.href = "{% url 'home' %}";
+            });
+        });
+    </script>
+</body>
+</html>
