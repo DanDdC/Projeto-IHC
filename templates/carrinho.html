@@ -1,0 +1,79 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GekkoTeca - Carrinho</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="home-body">
+
+    <div class="mobile-simulator">
+        <div class="mobile-content">
+            
+            <header class="home-navbar" style="display: flex; align-items: center; justify-content: center; padding: 1rem;">
+                <h1 style="color: white; font-size: 1.2rem; margin: 0;">Meu Carrinho</h1>
+            </header>
+
+            <main class="home-container" style="padding-top: 1.5rem;">
+                
+                {% if carrinho %}
+                    <div style="display: flex; flex-direction: column; gap: 1rem;">
+                        {% for item in carrinho %}
+                        <div style="display: flex; gap: 1rem; padding: 1rem; background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+                            <div style="flex: 0 0 60px;">
+                                {% if item.capa_url %}
+                                    <img src="{{ item.capa_url }}" alt="Capa" style="width: 100%; border-radius: 4px;">
+                                {% else %}
+                                    <img src="{% static 'IMG/L_rezende.png' %}" alt="Capa" style="width: 100%; border-radius: 4px;">
+                                {% endif %}
+                            </div>
+                            <div style="flex: 1;">
+                                <h3 style="font-size: 0.9rem; margin-bottom: 0.2rem;">{{ item.titulo }}</h3>
+                                <p style="font-size: 0.7rem; color: #666; margin-bottom: 0.5rem;">{{ item.autor }}</p>
+                                
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <span style="font-size: 0.7rem; background: #f1f8e9; color: #8bc34a; padding: 0.2rem 0.6rem; border-radius: 10px; font-weight: 600;">
+                                        {{ item.tipo }}
+                                    </span>
+                                    <span style="font-weight: 600; color: #333;">R$ {{ item.preco|floatformat:2 }}</span>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                    <div style="margin-top: 2rem; border-top: 1px solid #eee; padding-top: 1rem;">
+                        <div style="display: flex; justify-content: space-between; font-size: 1.1rem; font-weight: 700; color: #2c2c2c; margin-bottom: 1rem;">
+                            <span>Total:</span>
+                            <span>R$ {{ total|floatformat:2 }}</span>
+                        </div>
+                        <button style="width: 100%; background-color: #8bc34a; color: white; border: none; padding: 1rem; border-radius: 20px; font-weight: 600; font-size: 1rem; cursor: pointer;">
+                            Finalizar Pedido
+                        </button>
+                    </div>
+
+                {% else %}
+                    <div style="text-align: center; padding-top: 3rem; color: #666;">
+                        <p style="font-size: 3rem; margin-bottom: 1rem;">🛒</p>
+                        <p>Seu carrinho está vazio.</p>
+                        <a href="{% url 'home' %}" style="display: inline-block; margin-top: 1rem; color: #8bc34a; text-decoration: none; font-weight: 600;">Voltar às compras</a>
+                    </div>
+                {% endif %}
+
+            </main>
+        </div> 
+        
+        <nav class="bottom-nav">
+            <a href="{% url 'home' %}" class="nav-item"><span style="font-size: 20px;">🏠</span>Início</a>
+            <a href="#" class="nav-item"><span style="font-size: 20px;">📚</span>Meu Acervo</a>
+            <a href="{% url 'carrinho_view' %}" class="nav-item active"><span style="font-size: 20px;">🛒</span>Carrinho</a>
+            <a href="#" class="nav-item"><span style="font-size: 20px;">🛵</span>Pedidos</a>
+            <a href="#" class="nav-item"><span style="font-size: 20px;">👤</span>Perfil</a>
+        </nav>
+
+    </div> 
+</body>
+</html>
