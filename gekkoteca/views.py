@@ -83,3 +83,20 @@ def carrinho_view(request):
         'total': total
     }
     return render(request, 'carrinho.html', context)
+
+def pagamento_view(request):
+    carrinho = request.session.get('carrinho', [])
+    
+    # Calcula os valores
+    subtotal = sum(item['preco'] for item in carrinho)
+    taxa_entrega = 15.20
+    taxa_servico = 0.99
+    total = subtotal + taxa_entrega + taxa_servico
+    
+    context = {
+        'subtotal': subtotal,
+        'taxa_entrega': taxa_entrega,
+        'taxa_servico': taxa_servico,
+        'total': total
+    }
+    return render(request, 'pagamento.html', context)

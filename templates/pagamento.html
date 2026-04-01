@@ -1,0 +1,81 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GekkoTeca - Pagamento</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="home-body">
+
+    <div class="mobile-simulator">
+        <div class="mobile-content" style="padding-bottom: 0;">
+            
+            <header class="home-navbar" style="display: flex; align-items: center; padding: 1rem;">
+                <a href="{% url 'carrinho_view' %}" style="color: white; text-decoration: none; font-size: 1.2rem; margin-right: 1rem;">&#8592;</a>
+                <h1 style="color: white; font-size: 1.1rem; margin: 0; font-weight: 500;">/pagamento</h1>
+            </header>
+
+            <main class="home-container" style="padding-top: 2rem;">
+                
+                <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem;">
+                    <div style="width: 50px; height: 50px; background-color: #0a2e1f; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                        <img src="{% static 'IMG/livraria1.png' %}" alt="Livraria" style="width: 40px; border-radius: 50%;">
+                    </div>
+                    <div>
+                        <h2 style="font-size: 0.9rem; margin: 0; color: #2c2c2c;">Livraria Juquinha</h2>
+                        <span style="font-size: 0.75rem; color: #8bc34a; font-weight: 600;">4,9 ⭐</span>
+                    </div>
+                </div>
+
+                <div style="background-color: #d1edb0; padding: 1rem; border-radius: 12px; margin-bottom: 1.5rem;">
+                    <p style="font-size: 0.75rem; color: #333; text-align: center; margin-bottom: 0.5rem; font-weight: 500;">forma de pagamento</p>
+                    <div style="background: white; padding: 0.6rem 1rem; border-radius: 8px; display: flex; align-items: center; justify-content: space-between; cursor: pointer;">
+                        <div style="display: flex; align-items: center; gap: 0.8rem;">
+                            <div style="width: 28px; height: 28px; background: #1a365d; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 0.8rem; font-style: italic;">N</div>
+                            <span style="font-size: 0.85rem; font-weight: 500; color: #2c2c2c;">Banco NASTER</span>
+                        </div>
+                        <span style="color: #666;">›</span>
+                    </div>
+                </div>
+
+                <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 2rem;">
+                    <span style="font-size: 1.2rem;">🎟️</span>
+                    <span style="font-size: 0.9rem; font-weight: 500; color: #2c2c2c;">Cupom <span style="font-size: 0.6rem; color: #888; display: block; line-height: 0.5;">3 disponíveis</span></span>
+                    <span style="font-size: 0.8rem; color: #8bc34a; cursor: pointer; margin-left: 0.5rem;">adicionar</span>
+                </div>
+
+                <h3 style="font-size: 1.3rem; margin-bottom: 1rem; font-weight: 500; color: #2c2c2c;">Resumo de valores</h3>
+                
+                <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: #666; margin-bottom: 0.6rem;">
+                    <span>Subtotal:</span>
+                    <span style="color: #2c2c2c; font-weight: 500;">R$ {{ subtotal|floatformat:2 }}</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: #666; margin-bottom: 0.6rem;">
+                    <span>Taxa de entrega:</span>
+                    <span style="color: #2c2c2c; font-weight: 500;">R$ {{ taxa_entrega|floatformat:2 }}</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: #666; margin-bottom: 1rem;">
+                    <span>Taxa de serviço:</span>
+                    <span style="color: #2c2c2c; font-weight: 500;">R$ {{ taxa_servico|floatformat:2 }}</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-size: 0.85rem; color: #2c2c2c; font-weight: 600;">
+                    <span>Total</span>
+                    <span>R$ {{ total|floatformat:2 }}</span>
+                </div>
+
+            </main>
+            
+            <div style="position: absolute; bottom: 0; left: 0; width: 100%; background-color: #d1edb0; padding: 1.5rem; border-top: 1px solid #c5e1a5;">
+                <p style="font-size: 1.1rem; font-weight: 500; color: #2c2c2c; margin-bottom: 1rem;">Preço total: R$ {{ total|floatformat:2 }}</p>
+                <button style="width: 100%; background-color: #8bc34a; color: white; border: none; padding: 1rem; border-radius: 12px; font-weight: 500; font-size: 1.1rem; cursor: pointer;">
+                    Fazer pedido
+                </button>
+            </div>
+
+        </div> 
+    </div> 
+</body>
+</html>
