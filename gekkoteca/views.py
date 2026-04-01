@@ -111,3 +111,20 @@ def limpar_carrinho_view(request):
 
 def entrega_view(request):
     return render(request, 'entrega.html')
+
+def livraria_detail_view(request, livraria_id):
+    livraria = get_object_or_404(Livraria, id=livraria_id)
+    
+    # Como não temos categorias no modelo Livro ainda, vamos embaralhar
+    # e dividir os livros existentes para simular as diferentes sessões do protótipo
+    livros_recomendados = Livro.objects.order_by('?')[:4]
+    livros_romance = Livro.objects.order_by('?')[:4]
+    livros_hqs = Livro.objects.order_by('?')[:4]
+    
+    context = {
+        'livraria': livraria,
+        'livros_recomendados': livros_recomendados,
+        'livros_romance': livros_romance,
+        'livros_hqs': livros_hqs,
+    }
+    return render(request, 'livraria_detail.html', context) 

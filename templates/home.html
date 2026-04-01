@@ -64,28 +64,31 @@
                 </section>
 
                 <section class="home-section">
-                    <h2 class="home-section-title">Livrarias Próximas</h2>
-                    <div class="store-grid">
-                        {% for livraria in livrarias %}
-                        <div class="store-card">
-                            {% if livraria.imagem %}
-                                <img src="{{ livraria.imagem.url }}" alt="{{ livraria.nome }}" class="store-img">
-                            {% else %}
-                                <img src="{% static 'IMG/livraria1.png' %}" alt="{{ livraria.nome }}" class="store-img">
-                            {% endif %}
-                            <div class="store-content">
-                                <h3 class="store-name">{{ livraria.nome }}</h3>
-                                <div class="store-footer">
-                                    <span class="store-rating">⭐ 4.9</span>
-                                    <span class="store-distance">• {{ livraria.distancia_km }} km</span>
-                                </div>
-                            </div>
-                        </div>
-                        {% empty %}
-                            <p style="color: #666;">Nenhuma livraria cadastrada.</p>
-                        {% endfor %}
+    <h2 class="home-section-title">Livrarias Próximas</h2>
+    <div class="store-grid">
+        {% for livraria in livrarias %}
+        
+        <a href="{% url 'livraria_detail' livraria.id %}" style="text-decoration: none; color: inherit;">
+            <div class="store-card">
+                {% if livraria.imagem %}
+                    <img src="{{ livraria.imagem.url }}" alt="{{ livraria.nome }}" class="store-img">
+                {% else %}
+                    <img src="{% static 'IMG/livraria1.png' %}" alt="{{ livraria.nome }}" class="store-img">
+                {% endif %}
+                <div class="store-content">
+                    <h3 class="store-name">{{ livraria.nome }}</h3>
+                    <div class="store-footer">
+                        <span class="store-rating">⭐ 4.9</span>
+                        <span class="store-distance">• {{ livraria.distancia_km }} km</span>
                     </div>
-                </section>
+                </div>
+            </div>
+        </a>
+        {% empty %}
+            <p style="color: #666;">Nenhuma livraria cadastrada.</p>
+        {% endfor %}
+    </div>
+</section>
 
                 <section class="home-section">
                     <h2 class="home-section-title">Disponível para aluguel</h2>

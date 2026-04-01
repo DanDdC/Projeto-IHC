@@ -1,0 +1,173 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GekkoTeca - {{ livraria.nome }}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .mobile-content::-webkit-scrollbar { display: none; }
+        .mobile-content { 
+            -ms-overflow-style: none; 
+            scrollbar-width: none; 
+            background-color: var(--bg-color, #0f5c2e); 
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .livraria-top-bg {
+            height: 180px;
+            padding: 1.5rem;
+            position: relative;
+        }
+
+        .btn-voltar {
+            color: #000;
+            background: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        .livraria-card {
+            background: #ffffff;
+            border-radius: 24px 24px 0 0;
+            margin-top: -40px;
+            flex-grow: 1;
+            padding: 2rem 1.5rem 5rem 1.5rem;
+            z-index: 2;
+        }
+
+        .livraria-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+        }
+
+        .livraria-logo-box {
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            overflow: hidden;
+            background-color: #fff;
+            border: 2px solid #eee;
+        }
+
+        .livraria-logo-box img { width: 100%; height: 100%; object-fit: cover; }
+
+        .categoria-section { margin-bottom: 2rem; }
+        .categoria-titulo { font-size: 1rem; font-weight: 600; margin-bottom: 1rem; color: #2c2c2c; }
+
+        .livros-row {
+            display: flex;
+            gap: 1rem;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+        .livros-row::-webkit-scrollbar { display: none; }
+
+        .livro-item { flex: 0 0 100px; text-decoration: none; }
+        .livro-capa-placeholder {
+            width: 100%;
+            aspect-ratio: 2/3;
+            border-radius: 8px;
+            background-color: #e2e8f0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body class="home-body">
+    <div class="mobile-simulator">
+        <div class="mobile-content" style="{% if 'Aviaras' in livraria.nome %}--bg-color: #fdcb05;{% else %}--bg-color: #0f5c2e;{% endif %}">
+            
+            <div class="livraria-top-bg">
+                <a href="{% url 'home' %}" class="btn-voltar"> &#8592; </a>
+            </div>
+
+            <div class="livraria-card">
+                <div class="livraria-header">
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                        <div class="livraria-logo-box">
+                            {% if livraria.imagem %}
+                                <img src="{{ livraria.imagem.url }}" alt="Logo">
+                            {% else %}
+                                <img src="{% static 'IMG/livraria1.png' %}" alt="Logo">
+                            {% endif %}
+                        </div>
+                        <div>
+                            <h2 style="font-size: 1.1rem; margin: 0;">{{ livraria.nome }}</h2>
+                            <p style="font-size: 0.75rem; color: #666; margin: 0;">Min. R$ 19,00 • {{ livraria.distancia_km }} km</p>
+                        </div>
+                    </div>
+                    <div style="text-align: right;">
+                        <span style="font-weight: 700;">4,9 <span style="color: #8bc34a;">★</span></span>
+                        <p style="font-size: 0.7rem; color: #888; margin: 0;">(387)</p>
+                    </div>
+                </div>
+
+                <div class="categoria-section">
+    <h3 class="categoria-titulo">Recomendados</h3>
+    <div class="livros-row">
+        {% for livro in livros_recomendados %}
+        <a href="{% url 'livro_detail' livro.id %}" class="livro-item">
+            {% if livro.capa %}
+                <img src="{{ livro.capa.url }}" style="width:100%; border-radius:8px;">
+            {% else %}
+                <div class="livro-capa-placeholder"></div>
+            {% endif %}
+        </a>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="categoria-section">
+    <h3 class="categoria-titulo">Romance</h3>
+    <div class="livros-row">
+        {% for livro in livros_romance %}
+        <a href="{% url 'livro_detail' livro.id %}" class="livro-item">
+            {% if livro.capa %}
+                <img src="{{ livro.capa.url }}" style="width:100%; border-radius:8px;">
+            {% else %}
+                <div class="livro-capa-placeholder"></div>
+            {% endif %}
+        </a>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="categoria-section">
+    <h3 class="categoria-titulo">HQs</h3>
+    <div class="livros-row">
+        {% for livro in livros_hqs %}
+        <a href="{% url 'livro_detail' livro.id %}" class="livro-item">
+            {% if livro.capa %}
+                <img src="{{ livro.capa.url }}" style="width:100%; border-radius:8px;">
+            {% else %}
+                <div class="livro-capa-placeholder"></div>
+            {% endif %}
+        </a>
+        {% endfor %}
+    </div>
+</div>
+            </div>
+        </div>
+
+        <nav class="bottom-nav">
+            <a href="{% url 'home' %}" class="nav-item"><span style="font-size: 20px;">🏠</span>Início</a>
+            <a href="#" class="nav-item"><span style="font-size: 20px;">📚</span>Meu Acervo</a>
+            <a href="{% url 'carrinho_view' %}" class="nav-item"><span style="font-size: 20px;">🛒</span>Carrinho</a>
+            <a href="#" class="nav-item"><span style="font-size: 20px;">🛵</span>Pedidos</a>
+            <a href="#" class="nav-item"><span style="font-size: 20px;">👤</span>Perfil</a>
+        </nav>
+    </div>
+</body>
+</html>
