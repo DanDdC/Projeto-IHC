@@ -12,7 +12,8 @@ urlpatterns = [
     path('livro/<int:livro_id>/', views.livro_view, name='livro_detail'),
     path('carrinho/add/<int:livro_id>/', views.add_carrinho, name='add_carrinho'),
     path('carrinho/', views.carrinho_view, name='carrinho_view'),
-    path('pagamento/', views.pagamento_view, name='pagamento'), # <-- NOVA ROTA AQUI
+    path('pagamento/', views.pagamento_view, name='pagamento'),
+    path('carrinho/limpar/', views.limpar_carrinho_view, name='limpar_carrinho'), # <-- NOVA ROTA AQUI
 ]
 
 if settings.DEBUG:

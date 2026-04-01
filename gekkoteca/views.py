@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.http import JsonResponse  # <-- NOVA IMPORTAÇÃO AQUI
 from django.contrib import messages
 from .models import Livraria, Livro
 
@@ -100,3 +101,10 @@ def pagamento_view(request):
         'total': total
     }
     return render(request, 'pagamento.html', context)
+
+def limpar_carrinho_view(request):
+    # Remove o carrinho da sessão se ele existir
+    if 'carrinho' in request.session:
+        del request.session['carrinho']
+        request.session.modified = True
+    return JsonResponse({'status': 'sucesso'})
