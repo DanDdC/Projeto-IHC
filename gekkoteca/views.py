@@ -68,8 +68,8 @@ def add_carrinho(request, livro_id):
         # Salva a sessão
         request.session.modified = True
         
-        # Redireciona para a página do carrinho
-        return redirect('carrinho_view')
+        # ALTERAÇÃO AQUI: Em vez de redirecionar, devolvemos um JSON!
+        return JsonResponse({'status': 'sucesso', 'mensagem': 'Item adicionado ao carrinho'})
     
     return redirect('home')
 

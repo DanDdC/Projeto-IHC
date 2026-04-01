@@ -7,6 +7,12 @@
     <title>GekkoTeca - {{ livro.titulo }}</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        @keyframes popIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+    </style>
 </head>
 <body class="home-body">
 
@@ -27,7 +33,7 @@
                 </div>
             </header>
 
-            <main class="home-container" style="padding-top: 1.5rem;">
+            <main class="home-container" style="padding-top: 1.5rem; padding-bottom: 2rem;">
                 
                 <div style="display: flex; gap: 1rem; margin-bottom: 2rem;">
                     <div style="flex: 0 0 110px;">
@@ -55,20 +61,21 @@
                                     <div style="font-size: 0.65rem; font-weight: 600; color: #333;">Comprar</div>
                                     <div style="font-size: 0.65rem; color: #333;">R$ 29,99</div>
                                 </div>
-                                
                                 <div id="btn-alugar" class="opcao-preco" style="flex: 1; text-align: center; border: 1px solid #ccc; border-radius: 12px; padding: 0.4rem; background-color: #f5f5f5; cursor: pointer;">
                                     <div style="font-size: 0.65rem; color: #666;">Alugar</div>
                                     <div style="font-size: 0.65rem; color: #666;">R$ {{ livro.preco_aluguel }}</div>
                                 </div>
                             </div>
                             
-                            <button type="submit" style="width: 100%; background-color: #8bc34a; color: white; border: none; padding: 0.6rem; border-radius: 20px; font-weight: 600; font-size: 0.8rem; cursor: pointer;">
+                            <button type="submit" id="btn-submit-carrinho" style="width: 100%; background-color: #8bc34a; color: white; border: none; padding: 0.6rem; border-radius: 20px; font-weight: 600; font-size: 0.8rem; cursor: pointer; transition: 0.2s;">
                                 Adicionar ao carrinho
                             </button>
                         </form>
-                    </div> </div> <div>
+                    </div> 
+                </div> 
+
+                <div>
                     <h3 style="font-size: 1.1rem; color: #2c2c2c; margin-bottom: 1rem;">Comentarios</h3>
-                    
                     <div style="margin-bottom: 1.5rem;">
                         <img src="{% static 'IMG/treecko.png' %}" alt="Avatar" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover; background-color: #eee; margin-bottom: 0.5rem; display: block;">
                         <p style="font-size: 0.8rem; color: #444; line-height: 1.5;">
@@ -78,12 +85,32 @@
                 </div>
 
             </main>
+
+            <div id="cart-popup" style="display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 1000; align-items: center; justify-content: center;">
+                <div style="background: white; padding: 2rem 1.5rem; border-radius: 16px; text-align: center; width: 85%; box-shadow: 0 10px 25px rgba(0,0,0,0.2); animation: popIn 0.3s forwards ease-out;">
+                    <div style="width: 60px; height: 60px; background: #8bc34a; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.2rem;">
+                        <span style="color: white; font-size: 2rem; line-height: 1;">🛒</span>
+                    </div>
+                    <h3 style="color: #2c2c2c; margin-bottom: 0.5rem; font-weight: 700; font-size: 1.1rem;">Adicionado ao carrinho!</h3>
+                    <p style="color: #666; font-size: 0.85rem; line-height: 1.4; margin-bottom: 1.5rem;">O livro foi adicionado com sucesso. O que deseja fazer?</p>
+
+                    <div style="display: flex; gap: 0.8rem; flex-direction: column;">
+                        <button id="btn-fechar-popup" style="width: 100%; background-color: #f1f8e9; color: #8bc34a; border: 2px solid #8bc34a; padding: 0.8rem; border-radius: 12px; font-weight: 600; font-size: 0.9rem; cursor: pointer;">
+                            Continuar a explorar
+                        </button>
+                        <a href="{% url 'carrinho_view' %}" style="display: block; width: 100%; background-color: #8bc34a; color: white; border: none; padding: 0.8rem; border-radius: 12px; font-weight: 600; font-size: 0.9rem; text-decoration: none; cursor: pointer; box-sizing: border-box;">
+                            Ir para o carrinho
+                        </a>
+                    </div>
+                </div>
+            </div>
+
         </div> 
         
         <nav class="bottom-nav">
-            <a href="{% url 'home' %}" class="nav-item active"><span style="font-size: 20px;">🏠</span>Início</a>
+            <a href="{% url 'home' %}" class="nav-item"><span style="font-size: 20px;">🏠</span>Início</a>
             <a href="#" class="nav-item"><span style="font-size: 20px;">📚</span>Meu Acervo</a>
-           <a href="{% url 'carrinho_view' %}" class="nav-item"><span style="font-size: 20px;">🛒</span>Carrinho</a>
+            <a href="{% url 'carrinho_view' %}" class="nav-item"><span style="font-size: 20px;">🛒</span>Carrinho</a>
             <a href="#" class="nav-item"><span style="font-size: 20px;">🛵</span>Pedidos</a>
             <a href="#" class="nav-item"><span style="font-size: 20px;">👤</span>Perfil</a>
         </nav>
@@ -91,52 +118,93 @@
     </div> 
     
     <script src="{% static 'js/script.js' %}"></script>
-
-    <script src="{% static 'js/script.js' %}"></script>
     <script>
-        // Lógica para alternar entre Comprar e Alugar na página do Livro
         document.addEventListener('DOMContentLoaded', () => {
+            // Lógica para alternar entre Comprar e Alugar na página do Livro
             const btnComprar = document.getElementById('btn-comprar');
             const btnAlugar = document.getElementById('btn-alugar');
             const inputTipo = document.getElementById('tipo_aquisicao');
 
-            // Estilos para o estado Selecionado
             const estiloSelecionado = "flex: 1; text-align: center; border: 2px solid #8bc34a; border-radius: 12px; padding: 0.4rem; background-color: #f1f8e9; cursor: pointer;";
             const textoSelecionado = "font-size: 0.65rem; font-weight: 600; color: #333;";
-            
-            // Estilos para o estado Não Selecionado
             const estiloNormal = "flex: 1; text-align: center; border: 1px solid #ccc; border-radius: 12px; padding: 0.4rem; background-color: #f5f5f5; cursor: pointer;";
             const textoNormal = "font-size: 0.65rem; color: #666;";
 
             if (btnComprar && btnAlugar) {
                 btnComprar.addEventListener('click', () => {
-                    // Muda o visual do Comprar para selecionado
                     btnComprar.style.cssText = estiloSelecionado;
                     btnComprar.children[0].style.cssText = textoSelecionado;
                     btnComprar.children[1].style.cssText = textoSelecionado;
                     
-                    // Remove o visual do Alugar
                     btnAlugar.style.cssText = estiloNormal;
                     btnAlugar.children[0].style.cssText = textoNormal;
                     btnAlugar.children[1].style.cssText = textoNormal;
                     
-                    // Atualiza o input escondido
                     inputTipo.value = "comprar";
                 });
 
                 btnAlugar.addEventListener('click', () => {
-                    // Muda o visual do Alugar para selecionado
                     btnAlugar.style.cssText = estiloSelecionado;
                     btnAlugar.children[0].style.cssText = textoSelecionado;
                     btnAlugar.children[1].style.cssText = textoSelecionado;
                     
-                    // Remove o visual do Comprar
                     btnComprar.style.cssText = estiloNormal;
                     btnComprar.children[0].style.cssText = textoNormal;
                     btnComprar.children[1].style.cssText = textoNormal;
                     
-                    // Atualiza o input escondido
                     inputTipo.value = "alugar";
+                });
+            }
+
+            // ---- NOVA LÓGICA DO CARRINHO COM POP-UP ----
+            const formCarrinho = document.getElementById('form-carrinho');
+            const cartPopup = document.getElementById('cart-popup');
+            const btnFecharPopup = document.getElementById('btn-fechar-popup');
+            const btnSubmitCarrinho = document.getElementById('btn-submit-carrinho');
+
+            if (formCarrinho) {
+                formCarrinho.addEventListener('submit', function(e) {
+                    // Impede o recarregamento natural do formulário
+                    e.preventDefault(); 
+                    
+                    // Altera o botão para dar feedback ao utilizador enquanto salva
+                    const textoOriginal = btnSubmitCarrinho.innerText;
+                    btnSubmitCarrinho.innerText = "Adicionando...";
+                    btnSubmitCarrinho.style.opacity = "0.7";
+
+                    const formData = new FormData(this);
+
+                    // Envia os dados para o Django silenciosamente em background
+                    fetch(this.action, {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest'
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.status === 'sucesso') {
+                            // Volta o botão ao normal
+                            btnSubmitCarrinho.innerText = textoOriginal;
+                            btnSubmitCarrinho.style.opacity = "1";
+                            
+                            // Mostra a janela do pop-up!
+                            cartPopup.style.display = 'flex';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Erro:', error);
+                        // Se algo falhar na conexão (fallback), envia o formulário da forma tradicional
+                        this.submit(); 
+                    });
+                });
+            }
+
+            // Lógica para fechar o pop-up ao clicar em "Continuar"
+            if (btnFecharPopup) {
+                btnFecharPopup.addEventListener('click', () => {
+                    cartPopup.style.display = 'none';
                 });
             }
         });
