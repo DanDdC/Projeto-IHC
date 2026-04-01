@@ -1,23 +1,21 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import JsonResponse  # <-- NOVA IMPORTAÇÃO AQUI
 from django.contrib import messages
-from .models import Livraria, Livro
+from .models import Livraria, Livro, Colecao
 
 def auth_view(request):
     return render(request, 'auth.html')
 
 def home_view(request):
-    # Pega as livrarias em ordem aleatória
-    livrarias = Livraria.objects.order_by('?')
-    
-    # Pega 6 livros de forma aleatória
-    livros_aluguel = Livro.objects.order_by('?')[:6]
-    
-    context = {
+    livrarias = Livraria.objects.all()
+    livros_aluguel = Livro.objects.all()
+    colecoes = Colecao.objects.filter(ativa=True) 
+
+    return render(request, 'home.html', {
         'livrarias': livrarias,
-        'livros_aluguel': livros_aluguel
-    }
-    return render(request, 'home.html', context)
+        'livros_aluguel': livros_aluguel,
+        'colecoes': colecoes, # Envia para o HTML
+    })
 
 def search_view(request):
     # Pega o termo pesquisado na URL (ex: ?q=Romance)

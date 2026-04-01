@@ -31,27 +31,25 @@
             <main class="home-container">
 
                 <section class="home-section">
-                    <div class="banner-grid" id="bannerGrid">
-                            
-                            <div class="banner-card">
-                                <img src="{% static 'IMG/IMG_sherlock.png' %}" alt="Coleção Sherlock" class="banner-img">
-                            </div>
-                            
-                            <div class="banner-card">
-                                <img src="{% static 'IMG/IMG_sherlock.png' %}" alt="Coleção 2" class="banner-img">
-                            </div>
-                            
-                            <div class="banner-card">
-                                <img src="{% static 'IMG/IMG_sherlock.png' %}" alt="Coleção 3" class="banner-img">
-                            </div>
-                            
+                <div class="banner-grid" id="bannerGrid">
+                        {% for colecao in colecoes %}
+                        <div class="banner-card">
+                            {% if colecao.imagem %}
+                                <img src="{{ colecao.imagem.url }}" alt="{{ colecao.nome }}" class="banner-img">
+                            {% else %}
+                                <img src="{% static 'IMG/IMG_sherlock.png' %}" alt="Imagem Padrão" class="banner-img">
+                            {% endif %}
                         </div>
+                        {% empty %}
+                            <p style="color: #666; padding: 1rem;">Nenhuma coleção em destaque no momento.</p>
+                        {% endfor %}
+                    </div>
 
-                        <div class="pagination-dots" id="paginationDots">
-                            <span class="dot active" data-index="0"></span>
-                            <span class="dot" data-index="1"></span>
-                            <span class="dot" data-index="2"></span>
-                        </div>
+                    <div class="pagination-dots" id="paginationDots">
+                        {% for colecao in colecoes %}
+                            <span class="dot {% if forloop.first %}active{% endif %}" data-index="{{ forloop.counter0 }}"></span>
+                        {% endfor %}
+                    </div>
                 </section>
 
                 <section class="home-section">
