@@ -1,0 +1,378 @@
+/* ================== VARIÁVEIS (VERDES DA SUA IMAGEM) ================== */
+:root {
+    --bg-dark: #0a2e1f; /* Verde escuro (Laterais) */
+    --card-green: #18864b; /* Verde vibrante (Centro) */
+    --btn-dark: #061c12; /* Verde quase preto (Botão) */
+    --text-light: #ffffff;
+    --input-bg: #ffffff;
+    --input-text: #1E293B;
+    --error: #ff9999;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ================== O FUNDO ESCURO (LATERAIS) ================== */
+body.auth-body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--bg-dark); 
+    color: var(--text-light);
+    display: flex;
+    justify-content: center; /* Mantém a coluna no centro */
+    align-items: stretch;    /* Faz a coluna esticar de cima a baixo */
+    min-height: 100vh;
+}
+
+/* ================== A COLUNA CENTRAL (VERDE CLARO) ================== */
+.auth-wrapper {
+    width: 100%;
+    max-width: 550px; /* Aumentei para diminuir as bordas escuras */
+    display: flex;
+}
+
+.auth-card {
+    background-color: var(--card-green);
+    width: 100%;
+    padding: 3rem 4rem; /* Mais espaço interno para respirar */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Mantém o formulário no meio da tela */
+    box-shadow: 0 0 35px rgba(0, 0, 0, 0.4);
+    /* Removido o border-radius para colar no topo e no fundo */
+}
+
+/* ================== LOGO ================== */
+.auth-header-center {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.main-logo {
+    width: 160px; /* Imagem bem grande */
+    height: auto;
+    margin: 0 auto;
+    display: block;
+}
+
+/* ================== FORMULÁRIO E INPUTS ================== */
+.form-group { margin-bottom: 1.5rem; }
+label { 
+    display: block; 
+    font-size: 0.95rem; 
+    font-weight: 500; 
+    margin-bottom: 0.4rem; 
+}
+
+/* Esta regra garante que Email e Senha tenham exatamente o mesmo visual */
+input[type="email"], 
+input[type="password"],
+.input-group-password input {
+    width: 100%;
+    height: 55px; /* Altura fixa para garantir que fiquem idênticos */
+    padding: 1rem;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-family: 'Poppins', sans-serif;
+    color: var(--input-text);
+    background-color: var(--input-bg);
+    box-sizing: border-box;
+}
+
+input:focus { outline: 3px solid rgba(255, 255, 255, 0.4); }
+
+/* ================== BOTÃO DO OLHO (FIXADO) ================== */
+.input-group-password {
+    position: relative;
+    width: 100%;
+    display: block; 
+}
+
+.input-group-password input {
+    /* A barreira para o texto não encostar no olho */
+    padding-right: 3.5rem !important; 
+}
+
+.toggle-password {
+    position: absolute;
+    right: 0.8rem;
+    top: 50%;
+    transform: translateY(-50%); /* Centraliza o olho milimetricamente */
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #64748B; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.2rem;
+}
+
+.toggle-password:hover { color: #1E293B; }
+.toggle-password svg { width: 22px; height: 22px; }
+
+/* ================== BOTÃO DO OLHO ================== */
+.input-group-password {
+    position: relative;
+    width: 100%;
+    display: block; /* Remove o flexbox para evitar conflito de largura */
+}
+
+.input-group-password input {
+    width: 100%;
+    /* A mágica acontece aqui: uma barreira de 3.5rem (aprox 56px) à direita */
+    padding-right: 3.5rem !important; 
+    box-sizing: border-box;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 0.8rem;
+    top: 50%;
+    transform: translateY(-50%); /* Trava o botão perfeitamente no centro vertical */
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #64748B; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.2rem;
+}
+
+.toggle-password:hover { color: #1E293B; }
+.toggle-password svg { width: 22px; height: 22px; }
+
+/* ================== BOTÕES E LINKS ================== */
+.btn-solid {
+    width: 100%;
+    padding: 1rem;
+    background-color: var(--btn-dark);
+    color: var(--text-light);
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 1rem;
+    transition: background-color 0.2s;
+}
+.btn-solid:hover { background-color: #000000; }
+
+.switch-link {
+    text-align: center;
+    margin-top: 1.8rem;
+    font-size: 0.95rem;
+}
+.switch-link a {
+    color: var(--text-light);
+    font-weight: 700;
+    text-decoration: underline;
+}
+
+/* Utilitários */
+.hidden { display: none !important; }
+.error-feedback {
+    background-color: rgba(255, 0, 0, 0.2);
+    color: var(--error);
+    padding: 0.8rem;
+    border-radius: 8px;
+    border-left: 4px solid var(--error);
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+}
+
+
+/*HOME*/
+body.home-body {
+    background-color: #0a2e1f; /* Fundo Verde Escuro do Figma */
+    color: #ffffff;
+    display: block; 
+    min-height: 100vh;
+}
+
+/* ================== NAVBAR (CABEÇALHO) ================== */
+.home-navbar {
+    background-color: #0a2e1f; /* Navbar mesclada com o fundo */
+    padding: 1.5rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.home-nav-content {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.home-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+}
+
+.home-logo span {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #ffffff; /* Texto branco */
+    letter-spacing: 1px;
+}
+
+.home-search {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+}
+
+.home-search input {
+    width: 100%;
+    padding: 0.8rem 1.2rem 0.8rem 2.8rem;
+    border-radius: 999px;
+    border: none;
+    background-color: #ffffff;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.95rem;
+    color: #1E293B;
+}
+
+.home-search input:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(24, 134, 75, 0.5);
+}
+
+.home-search svg {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    color: #94A3B8;
+}
+
+.home-profile-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #ffffff; /* Ícone branco */
+    padding: 0.5rem;
+    border-radius: 50%;
+    transition: background-color 0.2s;
+}
+.home-profile-btn:hover { background-color: rgba(255, 255, 255, 0.1); }
+
+/* ================== CONTAINER PRINCIPAL E GRIDS ================== */
+.home-container {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 1rem 2rem 4rem 2rem;
+}
+
+.home-section {
+    margin-bottom: 3.5rem;
+}
+
+.home-section-title {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 1.5rem;
+}
+
+/* --- GRID 1: COLEÇÕES EM DESTAQUE --- */
+.banner-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 1.5rem;
+}
+
+.banner-card {
+    display: block;
+    border-radius: 16px;
+    overflow: hidden;
+    height: 160px; 
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+.banner-card:hover { transform: translateY(-4px); }
+.banner-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* --- GRID 2: CATEGORIAS (Ícones Circulares) --- */
+.category-grid {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.category-card {
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+.category-card:hover { transform: translateY(-5px); }
+
+.category-img-box {
+    width: 80px; 
+    height: 80px;
+    border-radius: 50%; /* Círculo perfeito do Figma */
+    overflow: hidden;
+}
+.category-img-box img { width: 100%; height: 100%; object-fit: cover; }
+
+/* --- GRID 3: LIVRARIAS PRÓXIMAS (Fundo Verde Vibrante) --- */
+.store-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.store-card {
+    display: flex;
+    align-items: center; 
+    background-color: #18864b; /* O verde vibrante do Figma */
+    border-radius: 12px;
+    padding: 1rem;
+    gap: 1.2rem; 
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+.store-card:hover { transform: translateY(-3px); }
+
+.store-img { width: 75px; height: 75px; border-radius: 10px; object-fit: cover; flex-shrink: 0; }
+.store-content { flex: 1; display: flex; flex-direction: column; }
+.store-name { font-weight: 700; font-size: 1rem; color: #ffffff; margin-bottom: 0.2rem; }
+.store-address { font-size: 0.8rem; color: #d1d5db; margin-bottom: 0.5rem; }
+.store-footer { display: flex; gap: 1rem; font-size: 0.85rem; font-weight: 600; }
+.store-distance { color: #e5e7eb; }
+.store-status.open { color: #a7f3d0; /* Verde bem claro para contraste */ }
+
+/* --- GRID 4: LIVROS (Fundo Transparente) --- */
+.book-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+    gap: 1.5rem;
+}
+
+.book-card {
+    background-color: transparent; /* Sem a caixa branca */
+    padding: 0;
+    border: none;
+    transition: transform 0.2s;
+    cursor: pointer;
+}
+.book-card:hover { transform: translateY(-4px); }
+
+.book-img {
+    width: 100%;
+    aspect-ratio: 2/3; 
+    border-radius: 8px;
+    object-fit: cover;
+    margin-bottom: 0.8rem;
+}
+
+.book-title { font-weight: 700; font-size: 0.95rem; line-height: 1.2; margin-bottom: 0.3rem; color: #ffffff; }
+.book-author { font-size: 0.8rem; color: #9ca3af; margin-bottom: 0.8rem; }
+.book-price { font-weight: 700; font-size: 1.1rem; color: #ffffff; }

@@ -1,0 +1,170 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GekkoTeca - Início</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="home-body">
+
+    <header class="home-navbar">
+        <div class="home-nav-content">
+            <a href="#" class="home-logo">
+                <img src="{% static 'IMG/treecko.png' %}" alt="Logo" width="35">
+                <span>GEKKOTECA</span>
+            </a>
+            <div class="home-search">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                </svg>
+                <input type="text" placeholder="Pesquisar livros, livrarias, categorias...">
+            </div>
+            <button class="home-profile-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <main class="home-container">
+
+        <section class="home-section">
+            <h2 class="home-section-title">Coleções em Destaque</h2>
+            <div class="banner-grid">
+                <div class="banner-card">
+                    <img src="{% static 'IMG/IMG_sherlock.png' %}" alt="Coleção Sherlock Holmes" class="banner-img">
+                </div>
+                <div class="banner-card">
+                    <img src="{% static 'IMG/IMG_sherlock.png' %}" alt="Coleção Investigação" class="banner-img">
+                </div>
+            </div>
+        </section>
+        <section class="home-section">
+            <h2 class="home-section-title">Categorias</h2>
+            <div class="category-grid">
+                
+                <div class="category-card">
+                    <div class="category-img-box">
+                        <img src="{% static 'IMG/F_romance.png' %}" alt="Romance">
+                    </div>
+                    <span class="category-name">Romance</span>
+                </div>
+
+                <div class="category-card">
+                    <div class="category-img-box">
+                        <img src="{% static 'IMG/F_misterio.png' %}" alt="Mistério">
+                    </div>
+                    <span class="category-name">Mistério</span>
+                </div>
+
+                <div class="category-card">
+                    <div class="category-img-box">
+                        <img src="{% static 'IMG/F_hq.png' %}" alt="HQ">
+                    </div>
+                    <span class="category-name">HQs</span>
+                </div>
+
+                <div class="category-card">
+                    <div class="category-img-box">
+                        <img src="{% static 'IMG/F_infantil.png' %}" alt="Infantil">
+                    </div>
+                    <span class="category-name">Infantil</span>
+                </div>
+
+                <div class="category-card">
+                    <div class="category-img-box">
+                        <img src="{% static 'IMG/F_educacao.png' %}" alt="Educação">
+                    </div>
+                    <span class="category-name">Educação</span>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="home-section">
+            <h2 class="home-section-title">Livrarias Próximas</h2>
+            <div class="store-grid">
+                
+                <div class="store-card">
+                    <img src="{% static 'IMG/livraria1.png' %}" alt="Gekko Point" class="store-img">
+                    <div class="store-content">
+                        <h3 class="store-name">Gekko Point Centro</h3>
+                        <p class="store-address">Av. Gekko, 123 - Boa Vista</p>
+                        <div class="store-footer">
+                            <span class="store-distance">5 km</span>
+                            <span class="store-status open">Aberto</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="store-card">
+                    <img src="{% static 'IMG/livraria1.png' %}" alt="Livraria Imperatriz" class="store-img">
+                    <div class="store-content">
+                        <h3 class="store-name">Livraria Imperatriz</h3>
+                        <p class="store-address">Shopping Recife - Boa Viagem</p>
+                        <div class="store-footer">
+                            <span class="store-distance">12 km</span>
+                            <span class="store-status open">Aberto</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="home-section">
+            <h2 class="home-section-title">Disponíveis para Aluguel</h2>
+            <div class="book-grid">
+                
+                <div class="book-card">
+                    <img src="{% static 'IMG/L_rezende.png' %}" alt="Livro Rezende" class="book-img">
+                    <h3 class="book-title">Dois Mundos</h3>
+                    <p class="book-author">RezendeEvil</p>
+                    <p class="book-price">R$ 15,90</p>
+                </div>
+
+                <div class="book-card">
+                    <img src="{% static 'IMG/L_rezende.png' %}" alt="Livro Rezende" class="book-img">
+                    <h3 class="book-title">De Volta ao Jogo</h3>
+                    <p class="book-author">RezendeEvil</p>
+                    <p class="book-price">R$ 12,90</p>
+                </div>
+                
+                <div class="book-card">
+                    <img src="{% static 'IMG/L_rezende.png' %}" alt="Livro Rezende" class="book-img">
+                    <h3 class="book-title">Jogada Final</h3>
+                    <p class="book-author">RezendeEvil</p>
+                    <p class="book-price">R$ 18,90</p>
+                </div>
+
+                <div class="book-card">
+                    <img src="{% static 'IMG/L_rezende.png' %}" alt="Livro Rezende" class="book-img">
+                    <h3 class="book-title">A Nova Missão</h3>
+                    <p class="book-author">RezendeEvil</p>
+                    <p class="book-price">R$ 14,90</p>
+                </div>
+                
+                <div class="book-card">
+                    <img src="{% static 'IMG/L_rezende.png' %}" alt="Livro Rezende" class="book-img">
+                    <h3 class="book-title">O Começo</h3>
+                    <p class="book-author">RezendeEvil</p>
+                    <p class="book-price">R$ 11,90</p>
+                </div>
+
+                <div class="book-card">
+                    <img src="{% static 'IMG/L_rezende.png' %}" alt="Livro Rezende" class="book-img">
+                    <h3 class="book-title">A Fuga</h3>
+                    <p class="book-author">RezendeEvil</p>
+                    <p class="book-price">R$ 16,90</p>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+</body>
+</html>
