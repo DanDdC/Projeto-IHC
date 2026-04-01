@@ -9,6 +9,7 @@ urlpatterns = [
     path('', views.auth_view, name='auth'),
     path('home/', views.home_view, name='home'),
     path('pesquisa/', views.search_view, name='search'),
+    path('livro/<int:livro_id>/', views.livro_view, name='livro_detail'), 
 ]
 
 if settings.DEBUG:

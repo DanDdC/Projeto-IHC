@@ -1,0 +1,92 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GekkoTeca - {{ livro.titulo }}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="home-body">
+
+    <div class="mobile-simulator">
+        <div class="mobile-content">
+            
+            <header class="home-navbar">
+                <div class="home-nav-content">
+                    <a href="{% url 'home' %}" class="home-logo">
+                        <img src="{% static 'IMG/treecko.png' %}" alt="Logo" width="30">
+                    </a>
+                    <div class="home-search">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                        </svg>
+                        <input type="text" id="search-input" placeholder="O que vai ler hoje?">
+                    </div>
+                </div>
+            </header>
+
+            <main class="home-container" style="padding-top: 1.5rem;">
+                
+                <div style="display: flex; gap: 1rem; margin-bottom: 2rem;">
+                    <div style="flex: 0 0 110px;">
+                        {% if livro.capa %}
+                            <img src="{{ livro.capa.url }}" alt="{{ livro.titulo }}" style="width: 100%; border-radius: 6px; box-shadow: 0 2px 6px rgba(0,0,0,0.15);">
+                        {% else %}
+                            <img src="{% static 'IMG/L_rezende.png' %}" alt="{{ livro.titulo }}" style="width: 100%; border-radius: 6px; box-shadow: 0 2px 6px rgba(0,0,0,0.15);">
+                        {% endif %}
+                    </div>
+                    
+                    <div style="flex: 1;">
+                        <h2 style="font-size: 1.1rem; color: #2c2c2c; margin-bottom: 0.3rem; line-height: 1.2;">{{ livro.titulo }}</h2>
+                        
+                        <p style="font-size: 0.75rem; color: #444; line-height: 1.4; margin-bottom: 0.8rem;">
+                            Obra de destaque de {{ livro.autor }}, este livro retrata uma história envolvente e profunda em que os personagens principais são... 
+                            <span style="color: #8bc34a; cursor: pointer;">Ler mais</span>
+                        </p>
+                        
+                        <div style="display: flex; gap: 0.5rem; margin-bottom: 0.8rem;">
+                            <div style="flex: 1; text-align: center; border: 2px solid #8bc34a; border-radius: 12px; padding: 0.4rem; background-color: #f1f8e9; cursor: pointer;">
+                                <div style="font-size: 0.65rem; font-weight: 600; color: #333;">Comprar</div>
+                                <div style="font-size: 0.65rem; color: #333;">R$ 29,99</div>
+                            </div>
+                            <div style="flex: 1; text-align: center; border: 1px solid #ccc; border-radius: 12px; padding: 0.4rem; background-color: #f5f5f5; cursor: pointer;">
+                                <div style="font-size: 0.65rem; color: #666;">Alugar</div>
+                                <div style="font-size: 0.65rem; color: #666;">R$ {{ livro.preco_aluguel }}</div>
+                            </div>
+                        </div>
+                        
+                        <button style="width: 100%; background-color: #8bc34a; color: white; border: none; padding: 0.6rem; border-radius: 20px; font-weight: 600; font-size: 0.8rem; cursor: pointer;">
+                            Adicionar ao carrinho
+                        </button>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 style="font-size: 1.1rem; color: #2c2c2c; margin-bottom: 1rem;">Comentarios</h3>
+                    
+                    <div style="display: flex; gap: 0.8rem; margin-bottom: 1.5rem;">
+                        <img src="{% static 'IMG/treecko.png' %}" alt="Avatar" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover; background-color: #eee;">
+                        <p style="font-size: 0.8rem; color: #444; line-height: 1.5;">
+                            A capa e os detalhes, que livro lindo. Não sei se gostei muito da história por uma questão de estilo mais melancolico e eu prefiro romance adolescente, mas é surpreendente por se tratar de uma leitura clássica.
+                        </p>
+                    </div>
+                </div>
+
+            </main>
+        </div> 
+        
+        <nav class="bottom-nav">
+            <a href="{% url 'home' %}" class="nav-item active"><span style="font-size: 20px;">🏠</span>Início</a>
+            <a href="#" class="nav-item"><span style="font-size: 20px;">📚</span>Meu Acervo</a>
+            <a href="#" class="nav-item"><span style="font-size: 20px;">🛒</span>Carrinho</a>
+            <a href="#" class="nav-item"><span style="font-size: 20px;">🛵</span>Pedidos</a>
+            <a href="#" class="nav-item"><span style="font-size: 20px;">👤</span>Perfil</a>
+        </nav>
+
+    </div> 
+    
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>

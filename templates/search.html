@@ -52,13 +52,13 @@
 
                     <div class="book-grid">
                         {% for livro in livros %}
-                        <div class="book-card">
-                            {% if livro.capa %}
+                        <a href="{% url 'livro_detail' livro.id %}" class="book-card" style="text-decoration: none; display: block;">
+    {% if livro.capa %}
                                 <img src="{{ livro.capa.url }}" alt="{{ livro.titulo }}" class="book-img">
                             {% else %}
                                 <img src="{% static 'IMG/L_rezende.png' %}" alt="{{ livro.titulo }}" class="book-img">
                             {% endif %}
-                        </div>
+                        </a>
                         {% endfor %}
                     </div>
                     

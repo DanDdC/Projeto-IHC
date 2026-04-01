@@ -91,13 +91,13 @@
                     <h2 class="home-section-title">Disponível para aluguel</h2>
                     <div class="book-grid">
                         {% for livro in livros_aluguel %}
-                        <div class="book-card">
-                            {% if livro.capa %}
+                        <a href="{% url 'livro_detail' livro.id %}" class="book-card" style="text-decoration: none; display: block;">
+    {% if livro.capa %}
                                 <img src="{{ livro.capa.url }}" alt="{{ livro.titulo }}" class="book-img">
                             {% else %}
                                 <img src="{% static 'IMG/L_rezende.png' %}" alt="{{ livro.titulo }}" class="book-img">
                             {% endif %}
-                        </div>
+                        </a>
                         {% empty %}
                             <p style="color: #666;">Nenhum livro disponível.</p>
                         {% endfor %}

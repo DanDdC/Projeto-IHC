@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .models import Livraria, Livro
 
 def auth_view(request):
@@ -31,3 +31,12 @@ def search_view(request):
         'livros': livros,
     }
     return render(request, 'search.html', context)
+
+def livro_view(request, livro_id):
+    # Busca o livro no banco de dados pelo ID. Se não achar, mostra erro 404.
+    livro = get_object_or_404(Livro, id=livro_id)
+    
+    context = {
+        'livro': livro
+    }
+    return render(request, 'livro.html', context)
