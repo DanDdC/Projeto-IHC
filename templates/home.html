@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-PT">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,135 +10,126 @@
 </head>
 <body class="home-body">
 
-    <header class="home-navbar">
-        <div class="home-nav-content">
-            <a href="#" class="home-logo">
-                <img src="{% static 'IMG/treecko.png' %}" alt="Logo" width="35">
-                <span>GEKKOTECA</span>
-            </a>
-            <div class="home-search">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
-                </svg>
-                <input type="text" placeholder="Pesquisar livros, livrarias, categorias...">
-            </div>
-            <button class="home-profile-btn">
-                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                </svg>
-            </button>
-        </div>
-    </header>
-
-    <main class="home-container">
-
-        <section class="home-section">
-            <h2 class="home-section-title">Coleções em Destaque</h2>
-            <div class="banner-grid">
-                <div class="banner-card">
-                    <img src="{% static 'IMG/IMG_sherlock.png' %}" alt="Coleção Sherlock Holmes" class="banner-img">
+    <div class="mobile-simulator">
+        
+        <div class="mobile-content">
+            
+            <header class="home-navbar">
+                <div class="home-nav-content">
+                    <a href="#" class="home-logo">
+                        <img src="{% static 'IMG/treecko.png' %}" alt="Logo" width="30">
+                    </a>
+                    <div class="home-search">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+    </svg>
+    <input type="text" id="search-input" placeholder="O que vai ler hoje?">
+</div>
                 </div>
-                <div class="banner-card">
-                    <img src="{% static 'IMG/IMG_sherlock.png' %}" alt="Coleção Investigação" class="banner-img">
-                </div>
-            </div>
-        </section>
-        <section class="home-section">
-            <h2 class="home-section-title">Categorias</h2>
-            <div class="category-grid">
-                
-                <div class="category-card">
-                    <div class="category-img-box">
-                        <img src="{% static 'IMG/F_romance.png' %}" alt="Romance">
-                    </div>
-                    <span class="category-name">Romance</span>
-                </div>
+            </header>
 
-                <div class="category-card">
-                    <div class="category-img-box">
-                        <img src="{% static 'IMG/F_misterio.png' %}" alt="Mistério">
-                    </div>
-                    <span class="category-name">Mistério</span>
-                </div>
+            <main class="home-container">
 
-                <div class="category-card">
-                    <div class="category-img-box">
-                        <img src="{% static 'IMG/F_hq.png' %}" alt="HQ">
-                    </div>
-                    <span class="category-name">HQs</span>
-                </div>
-
-                <div class="category-card">
-                    <div class="category-img-box">
-                        <img src="{% static 'IMG/F_infantil.png' %}" alt="Infantil">
-                    </div>
-                    <span class="category-name">Infantil</span>
-                </div>
-
-                <div class="category-card">
-                    <div class="category-img-box">
-                        <img src="{% static 'IMG/F_educacao.png' %}" alt="Educação">
-                    </div>
-                    <span class="category-name">Educação</span>
-                </div>
-
-            </div>
-        </section>
-
-        <section class="home-section">
-            <h2 class="home-section-title">Livrarias Próximas</h2>
-            <div class="store-grid">
-                
-                {% for livraria in livrarias %}
-                <div class="store-card">
-                    {% if livraria.imagem %}
-                        <img src="{{ livraria.imagem.url }}" alt="{{ livraria.nome }}" class="store-img">
-                    {% else %}
-                        <img src="{% static 'IMG/livraria1.png' %}" alt="{{ livraria.nome }}" class="store-img">
-                    {% endif %}
-                    
-                    <div class="store-content">
-                        <h3 class="store-name">{{ livraria.nome }}</h3>
-                        <p class="store-address">{{ livraria.endereco }}</p>
-                        <div class="store-footer">
-                            <span class="store-distance">{{ livraria.distancia_km }} km</span>
-                            {% if livraria.status_aberto %}
-                                <span class="store-status open">Aberto</span>
-                            {% else %}
-                                <span class="store-status" style="color: #ff9999;">Fechado</span>
-                            {% endif %}
+                <section class="home-section">
+                    <div class="banner-grid">
+                        <div class="banner-card">
+                            <img src="{% static 'IMG/IMG_sherlock.png' %}" alt="Coleção Sherlock Holmes" class="banner-img">
                         </div>
                     </div>
-                </div>
-                {% empty %}
-                    <p style="color: #fff;">Nenhuma livraria cadastrada ainda.</p>
-                {% endfor %}
+                </section>
 
-            </div>
-        </section>
+                <section class="home-section">
+                    <div class="category-grid">
+                        <div class="category-card">
+                            <div class="category-img-box"><img src="{% static 'IMG/F_romance.png' %}" alt="Romance"></div>
+                            <span class="category-name">Romance</span>
+                        </div>
+                        <div class="category-card">
+                            <div class="category-img-box"><img src="{% static 'IMG/F_misterio.png' %}" alt="Mistério"></div>
+                            <span class="category-name">Mistério</span>
+                        </div>
+                        <div class="category-card">
+                            <div class="category-img-box"><img src="{% static 'IMG/F_hq.png' %}" alt="HQ"></div>
+                            <span class="category-name">HQs</span>
+                        </div>
+                        <div class="category-card">
+                            <div class="category-img-box"><img src="{% static 'IMG/F_infantil.png' %}" alt="Infantil"></div>
+                            <span class="category-name">Infantil</span>
+                        </div>
+                        <div class="category-card">
+                            <div class="category-img-box"><img src="{% static 'IMG/F_educacao.png' %}" alt="Educação"></div>
+                            <span class="category-name">Educação</span>
+                        </div>
+                    </div>
+                </section>
 
-        <section class="home-section">
-            <h2 class="home-section-title">Disponíveis para Aluguel</h2>
-            <div class="book-grid">
-                
-                {% for livro in livros_aluguel %}
-                <div class="book-card">
-                    {% if livro.capa %}
-                        <img src="{{ livro.capa.url }}" alt="{{ livro.titulo }}" class="book-img">
-                    {% else %}
-                        <img src="{% static 'IMG/L_rezende.png' %}" alt="{{ livro.titulo }}" class="book-img">
-                    {% endif %}
-                    <h3 class="book-title">{{ livro.titulo }}</h3>
-                    <p class="book-author">{{ livro.autor }}</p>
-                    <p class="book-price">R$ {{ livro.preco_aluguel }}</p>
-                </div>
-                {% empty %}
-                    <p style="color: #fff;">Nenhum livro disponível no momento.</p>
-                {% endfor %}
+                <section class="home-section">
+                    <h2 class="home-section-title">Livrarias Próximas</h2>
+                    <div class="store-grid">
+                        {% for livraria in livrarias %}
+                        <div class="store-card">
+                            {% if livraria.imagem %}
+                                <img src="{{ livraria.imagem.url }}" alt="{{ livraria.nome }}" class="store-img">
+                            {% else %}
+                                <img src="{% static 'IMG/livraria1.png' %}" alt="{{ livraria.nome }}" class="store-img">
+                            {% endif %}
+                            <div class="store-content">
+                                <h3 class="store-name">{{ livraria.nome }}</h3>
+                                <div class="store-footer">
+                                    <span class="store-rating">⭐ 4.9</span>
+                                    <span class="store-distance">• {{ livraria.distancia_km }} km</span>
+                                </div>
+                            </div>
+                        </div>
+                        {% empty %}
+                            <p style="color: #666;">Nenhuma livraria cadastrada.</p>
+                        {% endfor %}
+                    </div>
+                </section>
 
-            </div>
-        </section>
+                <section class="home-section">
+                    <h2 class="home-section-title">Disponível para aluguel</h2>
+                    <div class="book-grid">
+                        {% for livro in livros_aluguel %}
+                        <div class="book-card">
+                            {% if livro.capa %}
+                                <img src="{{ livro.capa.url }}" alt="{{ livro.titulo }}" class="book-img">
+                            {% else %}
+                                <img src="{% static 'IMG/L_rezende.png' %}" alt="{{ livro.titulo }}" class="book-img">
+                            {% endif %}
+                        </div>
+                        {% empty %}
+                            <p style="color: #666;">Nenhum livro disponível.</p>
+                        {% endfor %}
+                    </div>
+                </section>
 
-    </main>
+            </main>
+        </div> <nav class="bottom-nav">
+            <a href="#" class="nav-item active">
+                <span style="font-size: 20px;">🏠</span>
+                Início
+            </a>
+            <a href="#" class="nav-item">
+                <span style="font-size: 20px;">📚</span>
+                Meu Acervo
+            </a>
+            <a href="#" class="nav-item">
+                <span style="font-size: 20px;">🛒</span>
+                Carrinho
+            </a>
+            <a href="#" class="nav-item">
+                <span style="font-size: 20px;">🛵</span>
+                Pedidos
+            </a>
+            <a href="#" class="nav-item">
+                <span style="font-size: 20px;">👤</span>
+                Perfil
+            </a>
+        </nav>
+
+    </div> 
+    
+    <script src="{% static 'js/script.js' %}"></script>
 </body>
 </html>

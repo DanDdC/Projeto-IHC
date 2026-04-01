@@ -1,0 +1,85 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GekkoTeca - Pesquisa</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="home-body">
+
+    <div class="mobile-simulator">
+        <div class="mobile-content">
+            
+            <header class="home-navbar">
+                <div class="home-nav-content">
+                    <a href="{% url 'home' %}" class="home-logo">
+                        <img src="{% static 'IMG/treecko.png' %}" alt="Logo" width="30">
+                    </a>
+                    <div class="home-search">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                        </svg>
+                        <input type="text" id="search-input" value="{{ query }}" placeholder="O que vai ler hoje?">
+                    </div>
+                </div>
+            </header>
+
+            <main class="home-container" style="padding-top: 1.5rem;">
+                
+                {% for livraria in livrarias %}
+                <div class="search-result-group" style="margin-bottom: 2.5rem;">
+                    
+                    <div class="store-card" style="width: 100%; margin-bottom: 1rem;">
+                        {% if livraria.imagem %}
+                            <img src="{{ livraria.imagem.url }}" alt="{{ livraria.nome }}" class="store-img">
+                        {% else %}
+                            <img src="{% static 'IMG/livraria1.png' %}" alt="{{ livraria.nome }}" class="store-img">
+                        {% endif %}
+                        <div class="store-content">
+                            <h3 class="store-name">{{ livraria.nome }}</h3>
+                            <div class="store-footer">
+                                <span class="store-distance">Min. R$ 19,00 • {{ livraria.distancia_km }} km</span>
+                            </div>
+                        </div>
+                        <div class="store-rating" style="text-align: right; font-size: 0.85rem;">
+                            4,9 ⭐<br>
+                            <span style="color: #64748b; font-weight: normal; font-size: 0.75rem;">(387)</span>
+                        </div>
+                    </div>
+
+                    <div class="book-grid">
+                        {% for livro in livros %}
+                        <div class="book-card">
+                            {% if livro.capa %}
+                                <img src="{{ livro.capa.url }}" alt="{{ livro.titulo }}" class="book-img">
+                            {% else %}
+                                <img src="{% static 'IMG/L_rezende.png' %}" alt="{{ livro.titulo }}" class="book-img">
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+                    </div>
+                    
+                </div>
+                {% empty %}
+                    <p style="text-align: center; color: #666; margin-top: 2rem;">Nenhum resultado encontrado.</p>
+                {% endfor %}
+
+            </main>
+        </div> 
+        
+        <nav class="bottom-nav">
+            <a href="{% url 'home' %}" class="nav-item active"><span style="font-size: 20px;">🏠</span>Início</a>
+            <a href="#" class="nav-item"><span style="font-size: 20px;">📚</span>Meu Acervo</a>
+            <a href="#" class="nav-item"><span style="font-size: 20px;">🛒</span>Carrinho</a>
+            <a href="#" class="nav-item"><span style="font-size: 20px;">🛵</span>Pedidos</a>
+            <a href="#" class="nav-item"><span style="font-size: 20px;">👤</span>Perfil</a>
+        </nav>
+
+    </div> 
+    
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>

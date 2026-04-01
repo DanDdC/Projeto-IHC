@@ -106,4 +106,32 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+    // ---- LÓGICA DE PESQUISA (IHC) ----
+    const categoryCards = document.querySelectorAll('.category-card');
+    const searchInput = document.getElementById('search-input');
+
+    // 1. Redirecionar ao clicar em um card de categoria
+    if (categoryCards.length > 0) {
+        categoryCards.forEach(card => {
+            card.style.cursor = 'pointer'; 
+            card.addEventListener('click', () => {
+                const categoryName = card.querySelector('.category-name').innerText;
+                // Redireciona para a nova rota de pesquisa passando a categoria na URL
+                window.location.href = '/pesquisa/?q=' + encodeURIComponent(categoryName);
+            });
+        });
+    }
+
+    // 2. Redirecionar ao apertar "Enter" na barra de pesquisa
+    if (searchInput) {
+        searchInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault(); // Evita que a página recarregue sozinha
+                const query = this.value.trim();
+                if (query) {
+                    window.location.href = '/pesquisa/?q=' + encodeURIComponent(query);
+                }
+            }
+        });
+    }
 });

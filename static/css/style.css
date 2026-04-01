@@ -182,197 +182,209 @@ input:focus { outline: 3px solid rgba(255, 255, 255, 0.4); }
 }
 
 
-/*HOME*/
+/* ================== HOME E SIMULADOR MOBILE ================== */
 body.home-body {
-    background-color: #0a2e1f; /* Fundo Verde Escuro do Figma */
-    color: #ffffff;
-    display: block; 
+    background-color: #2c2c2c; /* Fundo escuro do ecrã do PC */
+    display: flex;
+    justify-content: center;
+    align-items: center;
     min-height: 100vh;
+    margin: 0;
 }
 
-/* ================== NAVBAR (CABEÇALHO) ================== */
+.mobile-simulator {
+    width: 375px; /* Largura padrão de telemóvel */
+    height: 812px;
+    background-color: #ffffff;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+    border-radius: 30px; /* Bordas arredondadas do telemóvel */
+}
+
+.mobile-content {
+    flex: 1;
+    overflow-y: auto;
+    padding-bottom: 70px; /* Espaço para a bottom-nav não sobrepor o conteúdo */
+    background-color: #ffffff;
+}
+.mobile-content::-webkit-scrollbar { display: none; } /* Oculta a barra de scroll */
+
+/* ================== NAVBAR (CABEÇALHO VERDE) ================== */
 .home-navbar {
-    background-color: #0a2e1f; /* Navbar mesclada com o fundo */
-    padding: 1.5rem 0;
+    background-color: #8bc34a; /* Verde da barra de pesquisa */
+    padding: 1rem 1.5rem;
     position: sticky;
     top: 0;
-    z-index: 100;
+    z-index: 10;
 }
 
 .home-nav-content {
-    max-width: 1300px;
-    margin: 0 auto;
-    padding: 0 2rem;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.home-logo {
-    display: flex;
-    align-items: center;
     gap: 10px;
-    text-decoration: none;
-}
-
-.home-logo span {
-    font-size: 1.4rem;
-    font-weight: 700;
-    color: #ffffff; /* Texto branco */
-    letter-spacing: 1px;
+    align-items: center;
 }
 
 .home-search {
     position: relative;
-    width: 100%;
-    max-width: 500px;
+    flex: 1;
 }
 
 .home-search input {
     width: 100%;
-    padding: 0.8rem 1.2rem 0.8rem 2.8rem;
-    border-radius: 999px;
+    padding: 0.6rem 1rem 0.6rem 2.5rem;
+    border-radius: 20px;
     border: none;
     background-color: #ffffff;
     font-family: 'Poppins', sans-serif;
-    font-size: 0.95rem;
+    font-size: 0.85rem;
     color: #1E293B;
-}
-
-.home-search input:focus {
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(24, 134, 75, 0.5);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 .home-search svg {
     position: absolute;
-    left: 1rem;
+    left: 0.8rem;
     top: 50%;
     transform: translateY(-50%);
-    width: 20px;
-    height: 20px;
-    color: #94A3B8;
+    width: 18px;
+    height: 18px;
+    color: #8bc34a;
 }
-
-.home-profile-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: #ffffff; /* Ícone branco */
-    padding: 0.5rem;
-    border-radius: 50%;
-    transition: background-color 0.2s;
-}
-.home-profile-btn:hover { background-color: rgba(255, 255, 255, 0.1); }
 
 /* ================== CONTAINER PRINCIPAL E GRIDS ================== */
 .home-container {
-    max-width: 1300px;
-    margin: 0 auto;
-    padding: 1rem 2rem 4rem 2rem;
+    padding: 1rem 1.5rem;
 }
 
 .home-section {
-    margin-bottom: 3.5rem;
+    margin-bottom: 2rem;
 }
 
 .home-section-title {
-    font-size: 1.35rem;
-    font-weight: 700;
-    color: #ffffff;
-    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #2c2c2c;
+    margin-bottom: 1rem;
 }
 
-/* --- GRID 1: COLEÇÕES EM DESTAQUE --- */
+/* --- GRID 1: COLEÇÕES (Scroll Horizontal) --- */
 .banner-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-    gap: 1.5rem;
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    scrollbar-width: none;
 }
+.banner-grid::-webkit-scrollbar { display: none; }
 
 .banner-card {
-    display: block;
-    border-radius: 16px;
+    flex: 0 0 280px; /* Largura fixa para permitir scroll */
+    border-radius: 12px;
     overflow: hidden;
-    height: 160px; 
-    cursor: pointer;
-    transition: transform 0.2s;
+    height: 140px;
 }
-.banner-card:hover { transform: translateY(-4px); }
-.banner-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.banner-img { width: 100%; height: 100%; object-fit: cover; }
 
-/* --- GRID 2: CATEGORIAS (Ícones Circulares) --- */
+/* --- GRID 2: CATEGORIAS (Scroll Horizontal) --- */
 .category-grid {
     display: flex;
-    gap: 2rem;
-    flex-wrap: wrap;
+    gap: 1rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding-bottom: 0.5rem;
 }
+.category-grid::-webkit-scrollbar { display: none; }
 
 .category-card {
-    cursor: pointer;
-    transition: transform 0.2s;
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
 }
-.category-card:hover { transform: translateY(-5px); }
 
 .category-img-box {
-    width: 80px; 
-    height: 80px;
-    border-radius: 50%; /* Círculo perfeito do Figma */
-    overflow: hidden;
+    width: 60px; 
+    height: 60px;
+    border-radius: 50%;
+    background-color: #f8f9fa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
-.category-img-box img { width: 100%; height: 100%; object-fit: cover; }
+.category-img-box img { width: 40px; height: 40px; object-fit: contain; }
+.category-name { font-size: 0.75rem; color: #2c2c2c; font-weight: 500; }
 
-/* --- GRID 3: LIVRARIAS PRÓXIMAS (Fundo Verde Vibrante) --- */
+/* --- GRID 3: LIVRARIAS PRÓXIMAS (Scroll Horizontal) --- */
 .store-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 1.5rem;
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    scrollbar-width: none;
 }
+.store-grid::-webkit-scrollbar { display: none; }
 
 .store-card {
+    flex: 0 0 200px;
     display: flex;
     align-items: center; 
-    background-color: #18864b; /* O verde vibrante do Figma */
-    border-radius: 12px;
-    padding: 1rem;
-    gap: 1.2rem; 
-    cursor: pointer;
-    transition: transform 0.2s;
+    gap: 0.8rem; 
 }
-.store-card:hover { transform: translateY(-3px); }
+.store-img { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; }
+.store-content { flex: 1; }
+.store-name { font-weight: 600; font-size: 0.85rem; color: #2c2c2c; margin-bottom: 0.1rem; }
+.store-footer { display: flex; gap: 0.5rem; font-size: 0.75rem; color: #64748b; }
+.store-rating { color: #8bc34a; font-weight: 600; }
 
-.store-img { width: 75px; height: 75px; border-radius: 10px; object-fit: cover; flex-shrink: 0; }
-.store-content { flex: 1; display: flex; flex-direction: column; }
-.store-name { font-weight: 700; font-size: 1rem; color: #ffffff; margin-bottom: 0.2rem; }
-.store-address { font-size: 0.8rem; color: #d1d5db; margin-bottom: 0.5rem; }
-.store-footer { display: flex; gap: 1rem; font-size: 0.85rem; font-weight: 600; }
-.store-distance { color: #e5e7eb; }
-.store-status.open { color: #a7f3d0; /* Verde bem claro para contraste */ }
-
-/* --- GRID 4: LIVROS (Fundo Transparente) --- */
+/* --- GRID 4: LIVROS (Scroll Horizontal) --- */
 .book-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
-    gap: 1.5rem;
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    scrollbar-width: none;
 }
+.book-grid::-webkit-scrollbar { display: none; }
 
 .book-card {
-    background-color: transparent; /* Sem a caixa branca */
-    padding: 0;
-    border: none;
-    transition: transform 0.2s;
-    cursor: pointer;
+    flex: 0 0 100px; /* Capas mais pequenas para caberem várias */
 }
-.book-card:hover { transform: translateY(-4px); }
-
 .book-img {
     width: 100%;
     aspect-ratio: 2/3; 
     border-radius: 8px;
     object-fit: cover;
-    margin-bottom: 0.8rem;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.15);
 }
 
-.book-title { font-weight: 700; font-size: 0.95rem; line-height: 1.2; margin-bottom: 0.3rem; color: #ffffff; }
-.book-author { font-size: 0.8rem; color: #9ca3af; margin-bottom: 0.8rem; }
-.book-price { font-weight: 700; font-size: 1.1rem; color: #ffffff; }
+/* ================== MENU INFERIOR (BOTTOM NAV) ================== */
+.bottom-nav {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: #bdeb7a; /* Verde claro */
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 65px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: #4a4a4a;
+    font-size: 0.65rem;
+    font-weight: 600;
+    gap: 4px;
+}
+
+.nav-item.active {
+    color: #0a2e1f;
+}
