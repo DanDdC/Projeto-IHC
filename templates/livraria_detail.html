@@ -11,7 +11,7 @@
         /* Garante que o simulador seja o ponto de referência para o menu fixo */
         .mobile-simulator {
             position: relative;
-            overflow: hidden; /* Impede que o conteúdo saia das bordas arredondadas do simulador */
+            overflow: hidden; 
             display: flex;
             flex-direction: column;
         }
@@ -82,26 +82,6 @@
         .categoria-section { margin-bottom: 2rem; }
         .categoria-titulo { font-size: 1rem; font-weight: 600; margin-bottom: 1rem; color: #2c2c2c; }
 
-        .livros-row {
-            display: flex;
-            gap: 1rem;
-            overflow-x: auto;
-            scrollbar-width: none;
-            padding-bottom: 0.5rem;
-        }
-        .livros-row::-webkit-scrollbar { display: none; }
-
-        .livro-item { flex: 0 0 100px; text-decoration: none; }
-        
-        .book-img-detail {
-            width: 100%;
-            aspect-ratio: 2/3; 
-            border-radius: 8px;
-            object-fit: cover;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.15);
-            display: block;
-        }
-
     </style>
 </head>
 <body class="home-body">
@@ -135,13 +115,13 @@
 
                 <div class="categoria-section">
                     <h3 class="categoria-titulo">Recomendados</h3>
-                    <div class="livros-row">
+                    <div class="book-grid">
                         {% for livro in livros_recomendados %}
-                        <a href="{% url 'livro_detail' livro.id %}" class="livro-item">
+                        <a href="{% url 'livro_detail' livro.id %}" class="book-card" style="text-decoration: none; display: block;">
                             {% if livro.capa %}
-                                <img src="{{ livro.capa.url }}" alt="{{ livro.titulo }}" class="book-img-detail">
+                                <img src="{{ livro.capa.url }}" alt="{{ livro.titulo }}" class="book-img">
                             {% else %}
-                                <img src="{% static 'IMG/L_rezende.png' %}" alt="{{ livro.titulo }}" class="book-img-detail">
+                                <img src="{% static 'IMG/L_rezende.png' %}" alt="{{ livro.titulo }}" class="book-img">
                             {% endif %}
                         </a>
                         {% endfor %}
@@ -150,13 +130,13 @@
 
                 <div class="categoria-section">
                     <h3 class="categoria-titulo">Romance</h3>
-                    <div class="livros-row">
+                    <div class="book-grid">
                         {% for livro in livros_romance %}
-                        <a href="{% url 'livro_detail' livro.id %}" class="livro-item">
+                        <a href="{% url 'livro_detail' livro.id %}" class="book-card" style="text-decoration: none; display: block;">
                             {% if livro.capa %}
-                                <img src="{{ livro.capa.url }}" alt="{{ livro.titulo }}" class="book-img-detail">
+                                <img src="{{ livro.capa.url }}" alt="{{ livro.titulo }}" class="book-img">
                             {% else %}
-                                <img src="{% static 'IMG/L_rezende.png' %}" alt="{{ livro.titulo }}" class="book-img-detail">
+                                <img src="{% static 'IMG/L_rezende.png' %}" alt="{{ livro.titulo }}" class="book-img">
                             {% endif %}
                         </a>
                         {% endfor %}
@@ -165,20 +145,22 @@
 
                 <div class="categoria-section">
                     <h3 class="categoria-titulo">HQs</h3>
-                    <div class="livros-row">
+                    <div class="book-grid">
                         {% for livro in livros_hqs %}
-                        <a href="{% url 'livro_detail' livro.id %}" class="livro-item">
+                        <a href="{% url 'livro_detail' livro.id %}" class="book-card" style="text-decoration: none; display: block;">
                             {% if livro.capa %}
-                                <img src="{{ livro.capa.url }}" alt="{{ livro.titulo }}" class="book-img-detail">
+                                <img src="{{ livro.capa.url }}" alt="{{ livro.titulo }}" class="book-img">
                             {% else %}
-                                <img src="{% static 'IMG/L_rezende.png' %}" alt="{{ livro.titulo }}" class="book-img-detail">
+                                <img src="{% static 'IMG/L_rezende.png' %}" alt="{{ livro.titulo }}" class="book-img">
                             {% endif %}
                         </a>
                         {% endfor %}
                     </div>
                 </div>
             </div>
-        </div> <nav class="bottom-nav">
+        </div> 
+        
+        <nav class="bottom-nav">
             <a href="{% url 'home' %}" class="nav-item"><span style="font-size: 20px;">🏠</span>Início</a>
             <a href="#" class="nav-item">
                 <span style="font-size: 20px;">📚</span>
