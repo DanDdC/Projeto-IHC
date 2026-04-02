@@ -154,14 +154,13 @@
             // Lógica ao escolher um método de pagamento
             payOptionsList.forEach(option => {
                 option.addEventListener('click', () => {
-                    // Puxa o visual do botão selecionado para dentro da caixa principal
                     paymentContent.innerHTML = option.innerHTML;
                     
-                    // Esconde a lista novamente
+                    // Esconde a lista
                     paymentOptions.style.display = 'none';
                     paymentArrow.style.transform = 'rotate(0deg)';
                     
-                    // Valida que foi selecionado para o erro não disparar
+                    // Valida que foi selecionado
                     paymentSelected = true;
                     paymentError.style.display = 'none';
                 });
@@ -171,26 +170,23 @@
             btnPedido.addEventListener('click', (e) => {
                 if (!paymentSelected) {
                     e.preventDefault();
-                    // Exibe a barra cor-de-laranja
                     paymentError.style.display = 'block';
                     paymentError.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 } else {
                     e.preventDefault();
-                    // Dispara o Pop-up na tela
+                    // Pop-up
                     successPopup.style.display = 'flex';
                     
-                    // Envia um pedido silencioso para limpar o carrinho no backend
+                    // Limpar o carrinho no backend
                     fetch("{% url 'limpar_carrinho' %}")
                         .then(response => {
-                            // Aguarda 1 segundo (1000ms) com o pop-up na tela
                             setTimeout(() => {
-                                // Redireciona de volta para a Home (e o carrinho já estará vazio!)
+                                // Redireciona de volta para a home
                                 window.location.href = "{% url 'entrega' %}";
                             }, 1000); 
                         })
                         .catch(error => {
                             console.error("Erro ao limpar carrinho:", error);
-                            // Redireciona mesmo em caso de erro para não travar o ecrã
                             window.location.href = "{% url 'entrega' %}";
                         });
                 }

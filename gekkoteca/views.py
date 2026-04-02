@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.http import JsonResponse  # <-- NOVA IMPORTAÇÃO AQUI
+from django.http import JsonResponse
 from django.contrib import messages
 from .models import Livraria, Livro, Colecao
 
@@ -14,11 +14,11 @@ def home_view(request):
     return render(request, 'home.html', {
         'livrarias': livrarias,
         'livros_aluguel': livros_aluguel,
-        'colecoes': colecoes, # Envia para o HTML
+        'colecoes': colecoes,
     })
 
 def search_view(request):
-    # Pega o termo pesquisado na URL (ex: ?q=Romance)
+    # Pega o termo pesquisado na URL (ex: Romance)
     query = request.GET.get('q', '')
     
     # Busca todas as livrarias e livros misturados para simular o layout
@@ -66,7 +66,6 @@ def add_carrinho(request, livro_id):
         # Salva a sessão
         request.session.modified = True
         
-        # ALTERAÇÃO AQUI: Em vez de redirecionar, devolvemos um JSON!
         return JsonResponse({'status': 'sucesso', 'mensagem': 'Item adicionado ao carrinho'})
     
     return redirect('home')
@@ -101,10 +100,10 @@ def pagamento_view(request):
     return render(request, 'pagamento.html', context)
 
 def limpar_carrinho_view(request):
-    # Antes de apagar o carrinho, vamos transferir os livros para o "acervo"
+    # Transfere livro pro acervo
     if 'carrinho' in request.session:
         
-        # Cria a "mochila" do acervo se ela ainda não existir na sessão
+        # Cria o acervo se nao tiver um
         if 'acervo' not in request.session:
             request.session['acervo'] = []
             
@@ -112,7 +111,7 @@ def limpar_carrinho_view(request):
         for item in request.session['carrinho']:
             request.session['acervo'].append(item)
             
-        # Agora sim, apaga o carrinho
+        # Apaga o carrinho
         del request.session['carrinho']
         request.session.modified = True
         
@@ -122,12 +121,11 @@ def acervo_view(request):
     # Pega tudo o que foi guardado no acervo durante as compras passadas
     acervo_session = request.session.get('acervo', [])
     
-    # Separa os IDs dos livros de acordo com o tipo escolhido na hora da compra
+    # Separa os IDs
     ids_comprados = [item['livro_id'] for item in acervo_session if item['tipo'].lower() == 'comprar']
     ids_alugados = [item['livro_id'] for item in acervo_session if item['tipo'].lower() == 'alugar']
     
-    # Vai ao banco de dados buscar as informações completas (capa, título) desses IDs
-    # O comando "id__in" garante que ele traga todos os livros de uma vez, ignorando duplicatas
+    # Vai ao banco de dados buscar as informações completas (capa, título) desses IDs, resgistra por ID pra evitar repetição
     livros_comprados = Livro.objects.filter(id__in=ids_comprados)
     livros_alugados = Livro.objects.filter(id__in=ids_alugados)
     
@@ -143,8 +141,6 @@ def entrega_view(request):
 def livraria_detail_view(request, livraria_id):
     livraria = get_object_or_404(Livraria, id=livraria_id)
     
-    # Como não temos categorias no modelo Livro ainda, vamos embaralhar
-    # e dividir os livros existentes para simular as diferentes sessões do protótipo
     livros_recomendados = Livro.objects.order_by('?')[:4]
     livros_romance = Livro.objects.order_by('?')[:4]
     livros_hqs = Livro.objects.order_by('?')[:4]

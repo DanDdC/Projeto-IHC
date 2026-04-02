@@ -1,8 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // ---- LÓGICA DO OLHO FIXADA (PREVENÇÃO DE LAYOUT SHIFT) (IHC) ----
     const togglePasswordButtons = document.querySelectorAll('.toggle-password');
 
-    // SVGs para troca rápida
     const eyeOpen = `
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.644C3.67 8.55 7.3 \
@@ -58,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // ---- LÓGICA DE CADASTRO (SIMULADA COM LOCALSTORAGE) ----
+    // ---- LÓGICA DE CADASTRO ----
     const registerForm = document.getElementById('register-form');
     const regError = document.getElementById('register-error');
 
@@ -83,7 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // ---- LÓGICA DE LOGIN (SIMULADA COM LOCALSTORAGE) ----
+    // ---- LÓGICA DE LOGIN ----
     const loginForm = document.getElementById('login-form');
     const loginError = document.getElementById('login-error');
 
@@ -106,7 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
-    // ---- LÓGICA DE PESQUISA (IHC) ----
+    // ---- LÓGICA DE PESQUISA ----
     const categoryCards = document.querySelectorAll('.category-card');
     const searchInput = document.getElementById('search-input');
 
@@ -122,7 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 2. Redirecionar ao apertar "Enter" na barra de pesquisa
+    // 2. Redirecionar ao apertar enter na barra de pesquisa
     if (searchInput) {
         searchInput.addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
