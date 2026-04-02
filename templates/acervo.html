@@ -1,0 +1,139 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GekkoTeca - Meu Acervo</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .mobile-simulator {
+            position: relative;
+            overflow: hidden; 
+            display: flex;
+            flex-direction: column;
+        }
+
+        .mobile-content { 
+            flex: 1;
+            overflow-y: auto;
+            -ms-overflow-style: none; 
+            scrollbar-width: none; 
+            background-color: #ffffff; /* Fundo branco para a página de acervo */
+            display: flex;
+            flex-direction: column;
+            padding-bottom: 70px;
+        }
+        .mobile-content::-webkit-scrollbar { display: none; }
+
+        /* Cabeçalho verde padrão do topo */
+        .acervo-header {
+            background-color: #8bc34a;
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .acervo-title {
+            color: #ffffff;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .btn-voltar {
+            color: #ffffff;
+            font-size: 1.5rem;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        /* Seções de livros */
+        .acervo-container {
+            padding: 1.5rem;
+        }
+
+        .categoria-section { margin-bottom: 2rem; }
+        .categoria-titulo { 
+            font-size: 1.1rem; 
+            font-weight: 600; 
+            margin-bottom: 1rem; 
+            color: #2c2c2c; 
+        }
+    </style>
+</head>
+<body class="home-body">
+    <div class="mobile-simulator">
+        <div class="mobile-content">
+            
+            <div class="acervo-header">
+                <a href="javascript:history.back()" class="btn-voltar">&#8592;</a>
+                <h1 class="acervo-title">Meu Acervo</h1>
+            </div>
+
+            <div class="acervo-container">
+                <div class="categoria-section">
+                    <h3 class="categoria-titulo">Comprados</h3>
+                    <div class="book-grid">
+                        {% for livro in livros_comprados %}
+                        <a href="{% url 'livro_detail' livro.id %}" class="book-card" style="text-decoration: none; display: block;">
+                            {% if livro.capa %}
+                                <img src="{{ livro.capa.url }}" alt="{{ livro.titulo }}" class="book-img">
+                            {% else %}
+                                <img src="{% static 'IMG/L_rezende.png' %}" alt="{{ livro.titulo }}" class="book-img">
+                            {% endif %}
+                        </a>
+                        {% empty %}
+                            <p style="color: #666; font-size: 0.9rem;">Você ainda não comprou nenhum livro.</p>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="categoria-section">
+                    <h3 class="categoria-titulo">Alugados</h3>
+                    <div class="book-grid">
+                        {% for livro in livros_alugados %}
+                        <a href="{% url 'livro_detail' livro.id %}" class="book-card" style="text-decoration: none; display: block;">
+                            {% if livro.capa %}
+                                <img src="{{ livro.capa.url }}" alt="{{ livro.titulo }}" class="book-img">
+                            {% else %}
+                                <img src="{% static 'IMG/L_rezende.png' %}" alt="{{ livro.titulo }}" class="book-img">
+                            {% endif %}
+                        </a>
+                        {% empty %}
+                            <p style="color: #666; font-size: 0.9rem;">Nenhum livro alugado no momento.</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            
+        </div> 
+        
+        <nav class="bottom-nav">
+            <a href="{% url 'home' %}" class="nav-item">
+                <span style="font-size: 20px;">🏠</span>Início
+            </a>
+            <a href="{% url 'acervo_view' %}" class="nav-item active">
+                <span style="font-size: 20px;">📚</span>Meu Acervo
+            </a>
+            <a href="{% url 'carrinho_view' %}" class="nav-item">
+                <span style="font-size: 20px;">🛒</span>Carrinho
+            </a>
+            <a href="#" class="nav-item">
+                <span style="font-size: 20px;">🛵</span>Pedidos
+            </a>
+            <a href="#" class="nav-item">
+                <span style="font-size: 20px;">👤</span>Perfil
+            </a>
+        </nav>
+
+    </div>  
+</body>
+</html>
