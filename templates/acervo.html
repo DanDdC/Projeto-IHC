@@ -117,20 +117,25 @@
         </div> 
         
         <nav class="bottom-nav">
-            <a href="{% url 'home' %}" class="nav-item">
-                <span style="font-size: 20px;">🏠</span>Início
+            <a href="{% url 'home' %}" class="nav-item active">
+                <img src="{% static 'IMG/menu.png' %}" alt="Início" width="24" height="24">
+                Início
             </a>
             <a href="{% url 'acervo_view' %}" class="nav-item active">
-                <span style="font-size: 20px;">📚</span>Meu Acervo
+                <img src="{% static 'IMG/acervo.png' %}" alt="Meu Acerto" width="24" height="24">
+                Meu Acerto
             </a>
-            <a href="{% url 'carrinho_view' %}" class="nav-item">
-                <span style="font-size: 20px;">🛒</span>Carrinho
+            <a href="{% url 'carrinho_view' %}" class="nav-item active">
+                <img src="{% static 'IMG/carrinho.png' %}" alt="Carrinho" width="24" height="24">
+                Carrinho
             </a>
-            <a href="#" class="nav-item">
-                <span style="font-size: 20px;">🛵</span>Pedidos
+            <a href="#" class="nav-item active">
+                <img src="{% static 'IMG/delivery.png' %}" alt="Pedidos" width="30" height="30">
+                Pedidos
             </a>
-            <a href="#" class="nav-item">
-                <span style="font-size: 20px;">👤</span>Perfil
+            <a href="#" class="nav-item active">
+                <img src="{% static 'IMG/profile.png' %}" alt="Perfil" width="24" height="24">
+                Perfil
             </a>
         </nav>
 
