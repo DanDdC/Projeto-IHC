@@ -24,8 +24,19 @@
         }
 
         .auth-logo {
-            width: 140px;
-            margin-bottom: 3.5rem;
+            width: 250px;
+            margin: 0;
+        }
+
+        .auth-logo-wrapper {
+            background-color: #2e7d32; 
+            padding: 2.5rem; 
+            border-radius: 20px; 
+            display: flex; 
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 8.5rem; 
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
 
         .auth-form {
@@ -115,7 +126,9 @@
     <div class="mobile-simulator">
         <div class="mobile-content auth-mobile-bg">
             
-            <img src="{% static 'IMG/treecko.png' %}" alt="GekkoTeca Logo" class="auth-logo">
+            <div class="auth-logo-wrapper">
+                <img src="{% static 'IMG/logo.png' %}" alt="GekkoTeca Logo" class="auth-logo">
+            </div>
 
             <div id="login-section" style="width: 100%;">
                 <div id="login-error" class="error-feedback hidden"></div>
