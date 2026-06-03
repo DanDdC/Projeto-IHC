@@ -181,31 +181,35 @@ input:focus { outline: 3px solid rgba(255, 255, 255, 0.4); }
 
 /* ================== HOME E SIMULADOR MOBILE ================== */
 body.home-body {
-    background-color: #2c2c2c;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
+    background-color: #2c2c2c; /* Mantém o fundo cinza escuro nas laterais do monitor */
+    font-family: 'Poppins', sans-serif;
     margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;  /* Centraliza o celular na horizontal */
+    align-items: center;      /* Centraliza o celular na vertical */
+    min-height: 100vh;
+    width: 100vw;
 }
 
+/* O esqueleto do celular redesenhado e estabilizado */
 .mobile-simulator {
     width: 375px;
     height: 812px;
-    background-color: #ffffff;
+    background-color: #ffffff; /* Garante que o interior do celular volte a ser branco */
     position: relative;
-    overflow: hidden;
+    overflow: hidden;         /* Corta o loading e conteúdos nas curvas do aparelho */
     display: flex;
     flex-direction: column;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.6);
-    border-radius: 30px;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.6); /* Sombra marcante atrás do celular */
+    border-radius: 32px;      /* Cantos arredondados simulando o smartphone */
 }
 
 .mobile-content {
     flex: 1;
     overflow-y: auto;
-    padding-bottom: 70px;
-    background-color: #ffffff;
+    padding-bottom: 75px;     /* Espaço seguro para o conteúdo não sumir sob o menu inferior */
+    background-color: #ffffff; 
 }
 .mobile-content::-webkit-scrollbar { display: none; }
 
