@@ -9,6 +9,15 @@
         --text-dark: #1a1a1a;
         --text-muted: #555555;
         --bg-white: #ffffff;
+        --bg-item-hover: #f7f7f7;
+    }
+
+    /* O SEGREDO: Quando o body tiver a classe .dark-mode, as variáveis mudam de valor! */
+    body.dark-mode {
+        --text-dark: #f5f5f5;
+        --text-muted: #b0b0b0;
+        --bg-white: #1e1e1e;
+        --bg-item-hover: #2a2a2a;
     }
 
     /* 1. CABEÇALHO DO USUÁRIO */
@@ -48,6 +57,12 @@
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
     }
 
+    /* Ajuste suave no card de endereço durante o modo escuro para não queimar os olhos */
+    body.dark-mode .address-card {
+        background-color: #6da32f;
+        color: #ffffff;
+    }
+
     .address-card i {
         font-size: 2.2rem;
     }
@@ -72,7 +87,7 @@
         padding: 10px 20px;
     }
 
-    .menu-item {
+    .menu-item, .toggle-item {
         display: flex;
         align-items: center;
         gap: 18px;
@@ -84,21 +99,65 @@
         transition: background-color 0.15s ease;
     }
 
-    .menu-item:hover, .menu-item:focus {
-        background-color: #f7f7f7;
+    .menu-item:hover, .menu-item:focus, .toggle-item:hover {
+        background-color: var(--bg-item-hover);
         outline: none;
     }
 
-    .menu-item i {
+    .menu-item i, .toggle-item i {
         font-size: 1.4rem;
         width: 28px;
         text-align: center;
-        color: #1a1a1a;
+        color: var(--text-dark); /* Mudando para var para acompanhar o modo escuro */
     }
 
-    .menu-item span {
+    .menu-item span, .toggle-item span {
         font-size: 0.95rem;
         font-weight: 500;
+    }
+
+    /* ESTILOS DO INTERRUPTOR (SWITCH) */
+    .switch {
+        position: relative;
+        display: inline-block;
+        width: 44px;
+        height: 24px;
+        margin-left: auto; /* Empurra o switch para a extrema direita */
+    }
+
+    .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background-color: #ccc;
+        transition: .3s;
+        border-radius: 24px;
+    }
+
+    .slider:before {
+        position: absolute;
+        content: "";
+        height: 16px;
+        width: 16px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        transition: .3s;
+        border-radius: 50%;
+    }
+
+    input:checked + .slider {
+        background-color: #8bc34a;
+    }
+
+    input:checked + .slider:before {
+        transform: translateX(20px);
     }
 </style>
 
@@ -127,6 +186,16 @@
             <i class="fa-solid fa-gear" aria-hidden="true"></i>
             <span>Configurações</span>
         </a>
+
+        <div class="toggle-item">
+            <i class="fa-regular fa-moon" aria-hidden="true"></i>
+            <span>Modo Escuro</span>
+            <label class="switch">
+                <input type="checkbox" id="dark-mode-toggle" {% if request.session.dark_mode %}checked{% endif %}>
+                <span class="slider"></span>
+            </label>
+        </div>
+
         <a href="#dados-pessoais" class="menu-item">
             <i class="fa-regular fa-id-card" aria-hidden="true"></i>
             <span>Dados pessoais</span>
@@ -141,4 +210,29 @@
         </a>
     </nav>
 </main>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const toggle = document.getElementById('dark-mode-toggle');
+        
+        if (toggle) {
+            toggle.addEventListener('change', () => {
+                // 1. Envia sinal ao Django para salvar o estado na Session do backend
+                fetch("{% url 'alternar_modo_escuro' %}")
+                    .then(response => response.json())
+                    .then(data => {
+                        // 2. Transiciona as cores na mesma hora na janela do usuário
+                        if (data.dark_mode) {
+                            document.body.classList.add('dark-mode');
+                        } else {
+                            document.body.classList.remove('dark-mode');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Erro ao alternar o modo escuro:', error);
+                    });
+            });
+        }
+    });
+</script>
 {% endblock %}

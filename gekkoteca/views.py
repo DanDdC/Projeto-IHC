@@ -161,3 +161,10 @@ def perfil_view(request):
     }
     
     return render(request, 'perfil.html', context)
+
+def alternar_modo_escuro(request):
+    # Pega o estado atual na sessão (se não existir, o padrão é False)
+    dark_mode = request.session.get('dark_mode', False)
+    # Inverte o estado
+    request.session['dark_mode'] = not dark_mode
+    return JsonResponse({'dark_mode': request.session['dark_mode']})

@@ -521,3 +521,40 @@ body.home-body {
     visibility: hidden;
     pointer-events: none;
 }
+
+/* Regras para o Modo Escuro */
+body.dark-mode {
+    background-color: #121212 !important;
+    color: #e0e0e0 !important;
+}
+
+/* Forçar containers brancos a ficarem escuros */
+body.dark-mode .mobile-simulator,
+body.dark-mode .mobile-content,
+body.dark-mode [style*="background-color: white"],
+body.dark-mode [style*="background: white"] {
+    background-color: #1e1e1e !important;
+    background: #1e1e1e !important;
+}
+
+/* Ajustar textos escuros para claro */
+body.dark-mode h1, 
+body.dark-mode h2, 
+body.dark-mode h3, 
+body.dark-mode p,
+body.dark-mode span,
+body.dark-mode [style*="color: #2c2c2c"],
+body.dark-mode [style*="color: #333"] {
+    color: #f5f5f5 !important;
+}
+
+/* Suavizar os fundos verdes claros da Gekkoteca para não agredir os olhos */
+body.dark-mode [style*="background-color: #d1edb0"] {
+    background-color: #2d4a23 !important;
+}
+
+/* Input de pesquisa da home */
+body.dark-mode input {
+    background-color: #333 !important;
+    color: white !important;
+}

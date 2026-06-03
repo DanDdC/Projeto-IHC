@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
-<body class="home-body">
+<body class="home-body {% if request.session.dark_mode %}dark-mode{% endif %}">
 
     <div class="mobile-simulator">
         

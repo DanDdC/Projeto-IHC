@@ -18,6 +18,7 @@ urlpatterns = [
     path('livraria/<int:livraria_id>/', views.livraria_detail_view, name='livraria_detail'),
     path('acervo/', views.acervo_view, name='acervo_view'),
     path('perfil/', views.perfil_view, name='perfil_view'),
+    path('alternar-modo-escuro/', views.alternar_modo_escuro, name='alternar_modo_escuro'),
 ]
 
 if settings.DEBUG:
