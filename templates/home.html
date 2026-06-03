@@ -12,6 +12,13 @@
 
     <div class="mobile-simulator">
         
+        <div id="loading-screen" class="loading-overlay">
+            <div class="loading-wrapper">
+                <img src="{% static 'IMG/logo.png' %}" alt="Gekkoteca Loading" class="loading-gecko-spin">
+                <p class="loading-text">Carregando...</p>
+            </div>
+        </div>
+
         <div class="mobile-content">
             
             <header class="home-navbar">
@@ -20,18 +27,18 @@
                         <img src="{% static 'IMG/treecko.png' %}" alt="Logo" width="30">
                     </a>
                     <div class="home-search">
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-      <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
-    </svg>
-    <input type="text" id="search-input" placeholder="O que vai ler hoje?">
-</div>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                        </svg>
+                        <input type="text" id="search-input" placeholder="O que vai ler hoje?">
+                    </div>
                 </div>
             </header>
 
             <main class="home-container">
 
                 <section class="home-section">
-                <div class="banner-grid" id="bannerGrid">
+                    <div class="banner-grid" id="bannerGrid">
                         {% for colecao in colecoes %}
                         <div class="banner-card">
                             {% if colecao.imagem %}
@@ -78,38 +85,37 @@
                 </section>
 
                 <section class="home-section">
-    <h2 class="home-section-title">Livrarias Próximas</h2>
-    <div class="store-grid">
-        {% for livraria in livrarias %}
-        
-        <a href="{% url 'livraria_detail' livraria.id %}" style="text-decoration: none; color: inherit;">
-            <div class="store-card">
-                {% if livraria.imagem %}
-                    <img src="{{ livraria.imagem.url }}" alt="{{ livraria.nome }}" class="store-img">
-                {% else %}
-                    <img src="{% static 'IMG/livraria1.png' %}" alt="{{ livraria.nome }}" class="store-img">
-                {% endif %}
-                <div class="store-content">
-                    <h3 class="store-name">{{ livraria.nome }}</h3>
-                    <div class="store-footer">
-                        <span class="store-rating">⭐ 4.9</span>
-                        <span class="store-distance">• {{ livraria.distancia_km }} km</span>
+                    <h2 class="home-section-title">Livrarias Próximas</h2>
+                    <div class="store-grid">
+                        {% for livraria in livrarias %}
+                        <a href="{% url 'livraria_detail' livraria.id %}" style="text-decoration: none; color: inherit;">
+                            <div class="store-card">
+                                {% if livraria.imagem %}
+                                    <img src="{{ livraria.imagem.url }}" alt="{{ livraria.nome }}" class="store-img">
+                                {% else %}
+                                    <img src="{% static 'IMG/livraria1.png' %}" alt="{{ livraria.nome }}" class="store-img">
+                                {% endif %}
+                                <div class="store-content">
+                                    <h3 class="store-name">{{ livraria.nome }}</h3>
+                                    <div class="store-footer">
+                                        <span class="store-rating">⭐ 4.9</span>
+                                        <span class="store-distance">• {{ livraria.distancia_km }} km</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        {% empty %}
+                            <p style="color: #666;">Nenhuma livraria cadastrada.</p>
+                        {% endfor %}
                     </div>
-                </div>
-            </div>
-        </a>
-        {% empty %}
-            <p style="color: #666;">Nenhuma livraria cadastrada.</p>
-        {% endfor %}
-    </div>
-</section>
+                </section>
 
                 <section class="home-section">
                     <h2 class="home-section-title">Disponível para aluguel</h2>
                     <div class="book-grid">
                         {% for livro in livros_aluguel %}
                         <a href="{% url 'livro_detail' livro.id %}" class="book-card" style="text-decoration: none; display: block;">
-    {% if livro.capa %}
+                            {% if livro.capa %}
                                 <img src="{{ livro.capa.url }}" alt="{{ livro.titulo }}" class="book-img">
                             {% else %}
                                 <img src="{% static 'IMG/L_rezende.png' %}" alt="{{ livro.titulo }}" class="book-img">
@@ -127,19 +133,19 @@
                 <img src="{% static 'IMG/menu.png' %}" alt="Início" width="24" height="24">
                 Início
             </a>
-            <a href="{% url 'acervo_view' %}" class="nav-item active">
-                <img src="{% static 'IMG/acervo.png' %}" alt="Meu Acerto" width="24" height="24">
+            <a href="{% url 'acervo_view' %}" class="nav-item">
+                <img src="{% static 'IMG/acervo.png' %}" alt="Meu Acervo" width="24" height="24">
                 Meu Acerto
             </a>
-            <a href="{% url 'carrinho_view' %}" class="nav-item active">
+            <a href="{% url 'carrinho_view' %}" class="nav-item">
                 <img src="{% static 'IMG/carrinho.png' %}" alt="Carrinho" width="24" height="24">
                 Carrinho
             </a>
-            <a href="#" class="nav-item active">
+            <a href="#" class="nav-item">
                 <img src="{% static 'IMG/delivery.png' %}" alt="Pedidos" width="30" height="30">
                 Pedidos
             </a>
-            <a href="{% url 'perfil_view' %}" class="nav-item active">
+            <a href="{% url 'perfil_view' %}" class="nav-item">
                 <img src="{% static 'IMG/profile.png' %}" alt="Perfil" width="24" height="24">
                 Perfil
             </a>
@@ -148,5 +154,15 @@
     </div> 
     
     <script src="{% static 'js/script.js' %}"></script>
+    <script>
+        window.addEventListener('load', function() {
+            const loadingScreen = document.getElementById('loading-screen');
+            if (loadingScreen) {
+                setTimeout(function() {
+                    loadingScreen.classList.add('hidden');
+                }, 600); 
+            }
+        });
+    </script>
 </body>
 </html>

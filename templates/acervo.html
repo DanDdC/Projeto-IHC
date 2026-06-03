@@ -71,6 +71,12 @@
 </head>
 <body class="home-body">
     <div class="mobile-simulator">
+        <div id="loading-screen" class="loading-overlay">
+            <div class="loading-wrapper">
+                <img src="{% static 'IMG/logo.png' %}" alt="Gekkoteca Loading" class="loading-gecko-spin">
+                <p class="loading-text">Carregando...</p>
+            </div>
+        </div>
         <div class="mobile-content">
             
             <div class="acervo-header">
@@ -140,5 +146,15 @@
         </nav>
 
     </div>  
+    <script>
+        window.addEventListener('load', function() {
+            const loadingScreen = document.getElementById('loading-screen');
+            if (loadingScreen) {
+                setTimeout(function() {
+                    loadingScreen.classList.add('hidden');
+                }, 600); 
+            }
+        });
+    </script>
 </body>
 </html>
