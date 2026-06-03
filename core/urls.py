@@ -17,6 +17,7 @@ urlpatterns = [
     path('entrega/', views.entrega_view, name='entrega'),
     path('livraria/<int:livraria_id>/', views.livraria_detail_view, name='livraria_detail'),
     path('acervo/', views.acervo_view, name='acervo_view'),
+    path('perfil/', views.perfil_view, name='perfil_view'),
 ]
 
 if settings.DEBUG:
