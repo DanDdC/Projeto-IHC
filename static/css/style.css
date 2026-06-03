@@ -181,31 +181,35 @@ input:focus { outline: 3px solid rgba(255, 255, 255, 0.4); }
 
 /* ================== HOME E SIMULADOR MOBILE ================== */
 body.home-body {
-    background-color: #2c2c2c;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
+    background-color: #2c2c2c; /* Mantém o fundo cinza escuro nas laterais do monitor */
+    font-family: 'Poppins', sans-serif;
     margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;  /* Centraliza o celular na horizontal */
+    align-items: center;      /* Centraliza o celular na vertical */
+    min-height: 100vh;
+    width: 100vw;
 }
 
+/* O esqueleto do celular redesenhado e estabilizado */
 .mobile-simulator {
     width: 375px;
     height: 812px;
-    background-color: #ffffff;
+    background-color: #ffffff; /* Garante que o interior do celular volte a ser branco */
     position: relative;
-    overflow: hidden;
+    overflow: hidden;         /* Corta o loading e conteúdos nas curvas do aparelho */
     display: flex;
     flex-direction: column;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.6);
-    border-radius: 30px;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.6); /* Sombra marcante atrás do celular */
+    border-radius: 32px;      /* Cantos arredondados simulando o smartphone */
 }
 
 .mobile-content {
     flex: 1;
     overflow-y: auto;
-    padding-bottom: 70px;
-    background-color: #ffffff;
+    padding-bottom: 75px;     /* Espaço seguro para o conteúdo não sumir sob o menu inferior */
+    background-color: #ffffff; 
 }
 .mobile-content::-webkit-scrollbar { display: none; }
 
@@ -470,4 +474,87 @@ body.home-body {
 
 .nav-item.active {
     color: #0a2e1f;
+}
+
+.loading-overlay {
+    position: absolute; /* Prende o loading dentro do .app-container */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #0a2e1f; /* Verde escuro da Gekkoteca */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999; /* Garante que fica por cima de todo o conteúdo e navbars */
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.loading-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.loading-gecko-spin {
+    width: 70px; 
+    height: auto;
+    animation: gecko-spin 1.2s infinite linear; /* Giro contínuo e suave */
+}
+
+.loading-text {
+    color: #ffffff;
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+}
+
+@keyframes gecko-spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Classe que esconde o loading */
+.loading-overlay.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+/* Regras para o Modo Escuro */
+body.dark-mode {
+    background-color: #121212 !important;
+    color: #e0e0e0 !important;
+}
+
+/* Forçar containers brancos a ficarem escuros */
+body.dark-mode .mobile-simulator,
+body.dark-mode .mobile-content,
+body.dark-mode [style*="background-color: white"],
+body.dark-mode [style*="background: white"] {
+    background-color: #1e1e1e !important;
+    background: #1e1e1e !important;
+}
+
+/* Ajustar textos escuros para claro */
+body.dark-mode h1, 
+body.dark-mode h2, 
+body.dark-mode h3, 
+body.dark-mode p,
+body.dark-mode span,
+body.dark-mode [style*="color: #2c2c2c"],
+body.dark-mode [style*="color: #333"] {
+    color: #f5f5f5 !important;
+}
+
+/* Suavizar os fundos verdes claros da Gekkoteca para não agredir os olhos */
+body.dark-mode [style*="background-color: #d1edb0"] {
+    background-color: #2d4a23 !important;
+}
+
+/* Input de pesquisa da home */
+body.dark-mode input {
+    background-color: #333 !important;
+    color: white !important;
 }

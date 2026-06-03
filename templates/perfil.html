@@ -1,282 +1,238 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gekkoteca - Perfil</title>
-    <!-- Importação do Font Awesome para os ícones do menu lateral do perfil -->
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary-green: #81c784; 
-            --light-lime: #d4f597;    
-            --text-dark: #1a1a1a;
-            --text-muted: #555555;
-            --bg-white: #ffffff;
-        }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', 'Segoe UI', sans-serif;
-        }
+{% block content %}
+<style>
+    :root {
+        --primary-green: #81c784; 
+        --light-lime: #d4f597;    
+        --text-dark: #1a1a1a;
+        --text-muted: #555555;
+        --bg-white: #ffffff;
+        --bg-item-hover: #f7f7f7;
+    }
 
-        /* CORRIGIDO: Agora o fundo fica cinza escuro e centraliza o simulador igual à Home */
-        body {
-            background-color: #2c2c2c;
-            color: var(--text-dark);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-        }
+    /* O SEGREDO: Quando o body tiver a classe .dark-mode, as variáveis mudam de valor! */
+    body.dark-mode {
+        --text-dark: #f5f5f5;
+        --text-muted: #b0b0b0;
+        --bg-white: #1e1e1e;
+        --bg-item-hover: #2a2a2a;
+    }
 
-        /* CORRIGIDO: Virou o simulador idêntico com as bordas arredondadas e sombra da foto anterior */
-        .app-container {
-            width: 375px;
-            height: 812px;
-            background-color: var(--bg-white);
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.6);
-            border-radius: 30px;
-        }
+    /* 1. CABEÇALHO DO USUÁRIO */
+    .profile-header {
+        display: flex;
+        align-items: center;
+        padding: 24px 20px;
+        gap: 16px;
+    }
 
-        /* NOVO: Permite que o conteúdo role para baixo se passar do tamanho, sem quebrar o menu */
-        main {
-            flex: 1;
-            overflow-y: auto;
-            padding-bottom: 90px; 
-        }
-        main::-webkit-scrollbar { display: none; } /* Esconde a barra de rolagem nativa */
+    .avatar {
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
 
-        /* 1. CABEÇALHO DO USUÁRIO */
-        .profile-header {
-            display: flex;
-            align-items: center;
-            padding: 24px 20px;
-            gap: 16px;
-        }
+    .user-name {
+        font-size: 1.05rem;
+        font-weight: 600;
+        color: var(--text-dark);
+    }
 
-        .avatar {
-            width: 64px;
-            height: 64px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
+    /* 2. CARD DE ENDEREÇO */
+    .address-section {
+        padding: 0 20px 20px 20px;
+    }
 
-        .user-name {
-            font-size: 1.05rem;
-            font-weight: 600;
-            color: var(--text-dark);
-        }
+    .address-card {
+        background-color: #8cc63f; 
+        border-radius: 16px;
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        color: #000000;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    }
 
-        /* 2. CARD DE ENDEREÇO */
-        .address-section {
-            padding: 0 20px 20px 20px;
-        }
+    /* Ajuste suave no card de endereço durante o modo escuro para não queimar os olhos */
+    body.dark-mode .address-card {
+        background-color: #6da32f;
+        color: #ffffff;
+    }
 
-        .address-card {
-            background-color: #8cc63f; 
-            border-radius: 16px;
-            padding: 20px;
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            color: #000000;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-        }
+    .address-card i {
+        font-size: 2.2rem;
+    }
 
-        .address-card i {
-            font-size: 2.2rem;
-        }
+    .address-info h2 {
+        font-size: 0.9rem;
+        font-weight: 700;
+        margin-bottom: 2px;
+        letter-spacing: 0.5px;
+    }
 
-        .address-info h2 {
-            font-size: 0.9rem;
-            font-weight: 700;
-            margin-bottom: 2px;
-            letter-spacing: 0.5px;
-        }
+    .address-info p {
+        font-size: 0.72rem;
+        font-weight: 500;
+        line-height: 1.4;
+    }
 
-        .address-info p {
-            font-size: 0.72rem;
-            font-weight: 500;
-            line-height: 1.4;
-        }
+    /* 3. MENU DE OPÇÕES */
+    .profile-menu {
+        display: flex;
+        flex-direction: column;
+        padding: 10px 20px;
+    }
 
-        /* 3. MENU DE OPÇÕES */
-        .profile-menu {
-            display: flex;
-            flex-direction: column;
-            padding: 10px 20px;
-        }
+    .menu-item, .toggle-item {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        text-decoration: none;
+        color: var(--text-dark);
+        min-height: 56px; 
+        padding: 12px 8px;
+        border-radius: 8px;
+        transition: background-color 0.15s ease;
+    }
 
-        .menu-item {
-            display: flex;
-            align-items: center;
-            gap: 18px;
-            text-decoration: none;
-            color: var(--text-dark);
-            min-height: 56px; 
-            padding: 12px 8px;
-            border-radius: 8px;
-            transition: background-color 0.15s ease;
-        }
+    .menu-item:hover, .menu-item:focus, .toggle-item:hover {
+        background-color: var(--bg-item-hover);
+        outline: none;
+    }
 
-        .menu-item:hover, .menu-item:focus {
-            background-color: #f7f7f7;
-            outline: none;
-        }
+    .menu-item i, .toggle-item i {
+        font-size: 1.4rem;
+        width: 28px;
+        text-align: center;
+        color: var(--text-dark); /* Mudando para var para acompanhar o modo escuro */
+    }
 
-        .menu-item i {
-            font-size: 1.4rem;
-            width: 28px;
-            text-align: center;
-            color: #1a1a1a;
-        }
+    .menu-item span, .toggle-item span {
+        font-size: 0.95rem;
+        font-weight: 500;
+    }
 
-        .menu-item span {
-            font-size: 0.95rem;
-            font-weight: 500;
-        }
+    /* ESTILOS DO INTERRUPTOR (SWITCH) */
+    .switch {
+        position: relative;
+        display: inline-block;
+        width: 44px;
+        height: 24px;
+        margin-left: auto; /* Empurra o switch para a extrema direita */
+    }
 
-        /* 4. BARRA DE NAVEGAÇÃO INFERIOR GLOBAL CORRIGIDA */
-        .bottom-nav {
-            position: absolute; /* MUDADO: De fixed para absolute para prender no fundo do celular */
-            bottom: 0;
-            width: 100%;
-            background-color: #bdeb7a; /* Cor padrão que você usou na Home */
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            height: 65px;
-            border-top-left-radius: 20px;
-            border-top-right-radius: 20px;
-            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
-            z-index: 100;
-        }
+    .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
 
-        .nav-tab {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-decoration: none;
-            color: #4a4a4a;
-            font-size: 0.65rem;
-            font-weight: 600;
-            gap: 4px;
-            cursor: pointer;
-            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), color 0.2s ease, opacity 0.2s ease;
-        }
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background-color: #ccc;
+        transition: .3s;
+        border-radius: 24px;
+    }
 
-        .nav-tab img {
-            display: block;
-            transition: transform 0.2s;
-        }
+    .slider:before {
+        position: absolute;
+        content: "";
+        height: 16px;
+        width: 16px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        transition: .3s;
+        border-radius: 50%;
+    }
 
-        /* Aplica o efeito de afundar e escurecer nos outros ícones ao passar o mouse */
-        .nav-tab:not(.active):hover {
-            transform: translateY(3px);
-            color: #061c12;
-        }
-        .nav-tab:not(.active):hover img {
-            opacity: 0.8;
-        }
+    input:checked + .slider {
+        background-color: #8bc34a;
+    }
 
-        /* =======================================================
-           ESTADO ATIVO E PRESSIONADO (Especificamente para a aba Perfil)
-        ========================================================== */
-        .nav-tab.active {
-            transform: translateY(4px); /* Fica permanentemente afundado nesta tela */
-            color: #061c12;             /* Fica escuro */
-            font-weight: 700;
-        }
+    input:checked + .slider:before {
+        transform: translateX(20px);
+    }
+</style>
 
-        .nav-tab.active img {
-            opacity: 0.8; /* Aplica o tom escurecido no ícone */
-        }
-    </style>
-</head>
-<body>
+<header class="profile-header">
+    <img src="{{ foto_perfil_url }}" alt="Foto de perfil de {{ nome_completo }}" class="avatar">
+    <h1 class="user-name">{{ nome_completo }}</h1>
+</header>
 
-    <div class="app-container">
+<main>
+    <section class="address-section">
+        <div class="address-card">
+            <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+            <div class="address-info">
+                <h2>ENDEREÇO DE ENTREGA</h2>
+                <p>{{ endereco_entrega }}</p>
+            </div>
+        </div>
+    </section>
+
+    <nav class="profile-menu" aria-label="Menu do perfil">
+        <a href="#notificacoes" class="menu-item">
+            <i class="fa-regular fa-bell" aria-hidden="true"></i>
+            <span>Notificações</span>
+        </a>
+        <a href="#configuracoes" class="menu-item">
+            <i class="fa-solid fa-gear" aria-hidden="true"></i>
+            <span>Configurações</span>
+        </a>
+
+        <div class="toggle-item">
+            <i class="fa-regular fa-moon" aria-hidden="true"></i>
+            <span>Modo Escuro</span>
+            <label class="switch">
+                <input type="checkbox" id="dark-mode-toggle" {% if request.session.dark_mode %}checked{% endif %}>
+                <span class="slider"></span>
+            </label>
+        </div>
+
+        <a href="#dados-pessoais" class="menu-item">
+            <i class="fa-regular fa-id-card" aria-hidden="true"></i>
+            <span>Dados pessoais</span>
+        </a>
+        <a href="#pagamentos" class="menu-item">
+            <i class="fa-regular fa-credit-card" aria-hidden="true"></i>
+            <span>Pagamentos</span>
+        </a>
+        <a href="#suporte" class="menu-item">
+            <i class="fa-solid fa-headset" aria-hidden="true"></i>
+            <span>Suporte</span>
+        </a>
+    </nav>
+</main>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const toggle = document.getElementById('dark-mode-toggle');
         
-        <!-- Cabeçalho alimentado dinamicamente pelo contexto Django -->
-        <header class="profile-header">
-            <img src="{{ foto_perfil_url }}" alt="Foto de perfil de {{ nome_completo }}" class="avatar">
-            <h1 class="user-name">{{ nome_completo }}</h1>
-        </header>
-
-        <main>
-            <!-- Bloco do Endereço de Entrega Dinâmico -->
-            <section class="address-section">
-                <div class="address-card">
-                    <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
-                    <div class="address-info">
-                        <h2>ENDEREÇO DE ENTREGA</h2>
-                        <p>{{ endereco_entrega }}</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Menu Interno utilizando Ícones do Font Awesome correspondentes à imagem -->
-            <nav class="profile-menu" aria-label="Menu do perfil">
-                <a href="#notificacoes" class="menu-item">
-                    <i class="fa-regular fa-bell" aria-hidden="true"></i>
-                    <span>Notificações</span>
-                </a>
-                <a href="#configuracoes" class="menu-item">
-                    <i class="fa-solid fa-gear" aria-hidden="true"></i>
-                    <span>Configurações</span>
-                </a>
-                <a href="#dados-pessoais" class="menu-item">
-                    <i class="fa-regular fa-id-card" aria-hidden="true"></i>
-                    <span>Dados pessoais</span>
-                </a>
-                <a href="#pagamentos" class="menu-item">
-                    <i class="fa-regular fa-credit-card" aria-hidden="true"></i>
-                    <span>Pagamentos</span>
-                </a>
-                <a href="#suporte" class="menu-item">
-                    <i class="fa-solid fa-headset" aria-hidden="true"></i>
-                    <span>Suporte</span>
-                </a>
-            </nav>
-        </main>
-
-        <!-- Barra de Navegação Inferior corrigida com a classe .nav-tab -->
-        <nav class="bottom-nav" aria-label="Navegação principal">
-            <a href="{% url 'home' %}" class="nav-tab">
-                <img src="{% static 'IMG/menu.png' %}" alt="" width="24" height="24">
-                Início
-            </a>
-            <a href="{% url 'acervo_view' %}" class="nav-tab">
-                <img src="{% static 'IMG/acervo.png' %}" alt="" width="24" height="24">
-                Meu Acervo
-            </a>
-            <a href="{% url 'carrinho_view' %}" class="nav-tab">
-                <img src="{% static 'IMG/carrinho.png' %}" alt="" width="24" height="24">
-                Carrinho
-            </a>
-            <a href="#" class="nav-tab">
-                <img src="{% static 'IMG/delivery.png' %}" alt="" width="28" height="28">
-                Pedidos
-            </a>
-            <!-- Somente a aba Perfil marcada como ativa nesta tela -->
-            <a href="{% url 'perfil_view' %}" class="nav-tab active" aria-current="page">
-                <img src="{% static 'IMG/profile.png' %}" alt="" width="24" height="24">
-                Perfil
-            </a>
-        </nav>
-
-    </div> 
-    
-    <script src="{% static 'js/script.js' %}"></script>
-</body>
-</html>
+        if (toggle) {
+            toggle.addEventListener('change', () => {
+                // 1. Envia sinal ao Django para salvar o estado na Session do backend
+                fetch("{% url 'alternar_modo_escuro' %}")
+                    .then(response => response.json())
+                    .then(data => {
+                        // 2. Transiciona as cores na mesma hora na janela do usuário
+                        if (data.dark_mode) {
+                            document.body.classList.add('dark-mode');
+                        } else {
+                            document.body.classList.remove('dark-mode');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Erro ao alternar o modo escuro:', error);
+                    });
+            });
+        }
+    });
+</script>
+{% endblock %}

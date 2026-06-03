@@ -1,94 +1,56 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="pt-PT">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GekkoTeca - Carrinho</title>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-</head>
-<body class="home-body">
 
-    <div class="mobile-simulator">
-        <div class="mobile-content">
+{% block content %}
+<header class="home-navbar" style="display: flex; align-items: center; justify-content: center; padding: 1rem;">
+    <h1 style="color: white; font-size: 1.2rem; margin: 0;">Meu Carrinho</h1>
+</header>
+
+<main class="home-container" style="padding-top: 1.5rem; padding-bottom: 2rem;">
+    
+    {% if carrinho %}
+        <div style="background-color: #d1edb0; border: 2px solid #8bc34a; border-radius: 12px; padding: 1rem; min-height: 60vh; position: relative; padding-bottom: 4rem;">
             
-            <header class="home-navbar" style="display: flex; align-items: center; justify-content: center; padding: 1rem;">
-                <h1 style="color: white; font-size: 1.2rem; margin: 0;">Meu Carrinho</h1>
-            </header>
+            <div style="display: flex; justify-content: space-between; font-size: 0.85rem; color: #2c2c2c; margin-bottom: 1.5rem;">
+                <span>seus pedidos</span>
+                <span style="font-weight: 600;">Total: R$ {{ total|floatformat:2 }}</span>
+            </div>
 
-            <main class="home-container" style="padding-top: 1.5rem; padding-bottom: 2rem;">
-                
-                {% if carrinho %}
-                    <div style="background-color: #d1edb0; border: 2px solid #8bc34a; border-radius: 12px; padding: 1rem; min-height: 60vh; position: relative; padding-bottom: 4rem;">
-                        
-                        <div style="display: flex; justify-content: space-between; font-size: 0.85rem; color: #2c2c2c; margin-bottom: 1.5rem;">
-                            <span>seus pedidos</span>
-                            <span style="font-weight: 600;">Total: R$ {{ total|floatformat:2 }}</span>
-                        </div>
-
-                        <div style="display: flex; flex-direction: column;">
-                            {% for item in carrinho %}
-                            <div style="display: flex; gap: 1rem; margin-bottom: 1rem;">
-                                <div style="flex: 0 0 70px;">
-                                    {% if item.capa_url %}
-                                        <img src="{{ item.capa_url }}" alt="Capa" style="width: 100%; object-fit: cover;">
-                                    {% else %}
-                                        <img src="{% static 'IMG/L_rezende.png' %}" alt="Capa" style="width: 100%; object-fit: cover;">
-                                    {% endif %}
-                                </div>
-                                <div style="flex: 1;">
-                                    <h3 style="font-size: 0.9rem; margin-bottom: 0.2rem; color: #2c2c2c; font-weight: 500;">{{ item.titulo }}</h3>
-                                    <span style="font-weight: 600; color: #2c2c2c; font-size: 0.85rem;">R$ {{ item.preco|floatformat:2 }}</span>
-                                </div>
-                            </div>
-                            {% if not forloop.last %}
-                                <hr style="border: none; border-top: 1px solid #7cb342; margin-bottom: 1rem;">
-                            {% endif %}
-                            {% endfor %}
-                        </div>
-
-                        <div style="position: absolute; bottom: 1rem; left: 1rem; right: 1rem;">
-                            <a href="{% url 'pagamento' %}" style="display: block; text-align: center; background-color: #8bc34a; color: white; border: none; padding: 0.8rem; border-radius: 8px; font-weight: 500; font-size: 0.9rem; text-decoration: none;">
-                                Continuar para compra
-                            </a>
-                        </div>
+            <div style="display: flex; flex-direction: column;">
+                {% for item in carrinho %}
+                <div style="display: flex; gap: 1rem; margin-bottom: 1rem;">
+                    <div style="flex: 0 0 70px;">
+                        {% if item.capa_url %}
+                            <img src="{{ item.capa_url }}" alt="Capa" style="width: 100%; object-fit: cover;">
+                        {% else %}
+                            <img src="{% static 'IMG/L_rezende.png' %}" alt="Capa" style="width: 100%; object-fit: cover;">
+                        {% endif %}
                     </div>
-
-                {% else %}
-                    <div style="text-align: center; padding-top: 3rem; color: #666;">
-                        <p style="font-size: 3rem; margin-bottom: 1rem;">🛒</p>
-                        <p>Seu carrinho está vazio.</p>
-                        <a href="{% url 'home' %}" style="display: inline-block; margin-top: 1rem; color: #8bc34a; text-decoration: none; font-weight: 600;">Voltar às compras</a>
+                    <div style="flex: 1;">
+                        <h3 style="font-size: 0.9rem; margin-bottom: 0.2rem; color: #2c2c2c; font-weight: 500;">{{ item.titulo }}</h3>
+                        <span style="font-weight: 600; color: #2c2c2c; font-size: 0.85rem;">R$ {{ item.preco|floatformat:2 }}</span>
                     </div>
+                </div>
+                {% if not forloop.last %}
+                    <hr style="border: none; border-top: 1px solid #7cb342; margin-bottom: 1rem;">
                 {% endif %}
+                {% endfor %}
+            </div>
 
-            </main>
-        </div> 
-        
-        <nav class="bottom-nav">
-            <a href="{% url 'home' %}" class="nav-item active">
-                <img src="{% static 'IMG/menu.png' %}" alt="Início" width="24" height="24">
-                Início
-            </a>
-            <a href="{% url 'acervo_view' %}" class="nav-item active">
-                <img src="{% static 'IMG/acervo.png' %}" alt="Meu Acerto" width="24" height="24">
-                Meu Acerto
-            </a>
-            <a href="{% url 'carrinho_view' %}" class="nav-item active">
-                <img src="{% static 'IMG/carrinho.png' %}" alt="Carrinho" width="24" height="24">
-                Carrinho
-            </a>
-            <a href="#" class="nav-item active">
-                <img src="{% static 'IMG/delivery.png' %}" alt="Pedidos" width="30" height="30">
-                Pedidos
-            </a>
-            <a href="#" class="nav-item active">
-                <img src="{% static 'IMG/profile.png' %}" alt="Perfil" width="24" height="24">
-                Perfil
-            </a>
-        </nav>
+            <div style="position: absolute; bottom: 1rem; left: 1rem; right: 1rem;">
+                <a href="{% url 'pagamento' %}" style="display: block; text-align: center; background-color: #8bc34a; color: white; border: none; padding: 0.8rem; border-radius: 8px; font-weight: 500; font-size: 0.9rem; text-decoration: none;">
+                    Continuar para compra
+                </a>
+            </div>
+        </div>
 
-    </div> 
-</body>
-</html>
+    {% else %}
+        <div style="text-align: center; padding-top: 3rem; color: #666;">
+            <p style="font-size: 3rem; margin-bottom: 1rem;">🛒</p>
+            <p>Seu carrinho está vazio.</p>
+            <a href="{% url 'home' %}" style="display: inline-block; margin-top: 1rem; color: #8bc34a; text-decoration: none; font-weight: 600;">Voltar às compras</a>
+        </div>
+    {% endif %}
+
+</main>
+{% endblock %}
