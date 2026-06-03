@@ -18,6 +18,9 @@
         --text-muted: #b0b0b0;
         --bg-white: #1e1e1e;
         --bg-item-hover: #2a2a2a;
+        
+        /* O tom de verde escuro idêntico ao da tela de loading */
+        --primary-green: #0a2e1f; 
     }
 
     /* 1. CABEÇALHO DO USUÁRIO */
@@ -47,7 +50,7 @@
     }
 
     .address-card {
-        background-color: #8cc63f; 
+        background-color: var(--primary-green);
         border-radius: 16px;
         padding: 20px;
         display: flex;
@@ -59,7 +62,7 @@
 
     /* Ajuste suave no card de endereço durante o modo escuro para não queimar os olhos */
     body.dark-mode .address-card {
-        background-color: #6da32f;
+        background-color: var(--primary-green);
         color: #ffffff;
     }
 
@@ -152,8 +155,8 @@
         border-radius: 50%;
     }
 
-    input:checked + .slider {
-        background-color: #8bc34a;
+    body.dark-mode input:checked + .slider {
+        background-color: #0a2e1f; /* Verde escuro do loading para o switch ativo */
     }
 
     input:checked + .slider:before {

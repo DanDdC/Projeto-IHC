@@ -472,8 +472,8 @@ body.home-body {
     gap: 4px;
 }
 
-.nav-item.active {
-    color: #0a2e1f;
+body.dark-mode .nav-item.active {
+    color: #0a2e1f !important; /* Agora usa o verde escuro do loading */
 }
 
 .loading-overlay {

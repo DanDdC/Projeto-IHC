@@ -7,6 +7,115 @@
     <title>GekkoTeca</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- REGRAS MASTER DO MODO ESCURO INJETADAS VIA BASE -->
+    <style>
+        /* Transição suave ao alternar o tema */
+        body, .mobile-simulator, .mobile-content, .bottom-nav, a, span, h1, h2, h3, p, button, input, header {
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+
+        /* CONFIGURAÇÃO DO MODO ESCURO ATIVO */
+        body.dark-mode {
+            background-color: #121212 !important;
+        }
+
+        /* CORRIGIDO: O corpo do simulador agora assume o cinza fosco da barra de pesquisa! */
+        body.dark-mode .mobile-simulator,
+        body.dark-mode .mobile-content {
+            background-color: #242424 !important;
+        }
+
+        /* 1. MENU DE CIMA (HEADER): Mantém o VERDE ESCURO DO LOADING */
+        body.dark-mode header,
+        body.dark-mode .profile-header,
+        body.dark-mode .mobile-content > div:first-child {
+            background-color: #0a2e1f !important;
+            background: #0a2e1f !important;
+        }
+
+        /* Garante que os textos de dentro do menu de cima fiquem brancos para dar leitura */
+        body.dark-mode header *, 
+        body.dark-mode .profile-header * {
+            color: #ffffff !important;
+        }
+
+        /* 2. MENU DE BAIXO (BOTTOM-NAV): Mantém o VERDE ESCURO DO LOADING */
+        body.dark-mode .bottom-nav {
+            background-color: #0a2e1f !important;
+            border-top: 1px solid #05160f !important;
+        }
+
+        /* Links do menu inferior que não estão ativos (ficam com um verde clarinho apagado) */
+        body.dark-mode .nav-item {
+            color: #83a394 !important;
+        }
+
+        /* Link ativo no menu inferior ganha destaque total em Branco */
+        body.dark-mode .nav-item.active {
+            color: #ffffff !important; 
+            font-weight: 600;
+        }
+        
+        body.dark-mode .nav-item.active img {
+            filter: drop-shadow(0px 0px 6px rgba(255, 255, 255, 0.8)) brightness(1.3);
+        }
+
+        /* 3. CARD DE ENDEREÇO E OUTROS BLOCOS INTERNOS */
+        /* CORRIGIDO: Cards internos agora usam um cinza ligeiramente mais claro para dar profundidade sobre o fundo */
+        body.dark-mode [style*="background-color: white"],
+        body.dark-mode [style*="background: white"],
+        body.dark-mode [style*="background-color: #ffffff"],
+        body.dark-mode .toggle-item {
+            background-color: #333333 !important;
+            background: #333333 !important;
+        }
+
+        /* Se o card de endereço for aquele verde limão, damos um tom verde escuro para combinar */
+        body.dark-mode .address-card,
+        body.dark-mode [style*="background-color: #8cc63f"] {
+            background-color: #0c3624 !important;
+            color: #ffffff !important;
+        }
+        body.dark-mode .address-card * {
+            color: #ffffff !important;
+        }
+
+        /* Botões principais das telas */
+        body.dark-mode button, 
+        body.dark-mode .btn-primary,
+        body.dark-mode [style*="background-color: #8bc34a"] {
+            background-color: #0a2e1f !important;
+            background: #0a2e1f !important;
+            color: #ffffff !important;
+        }
+
+        /* Caixas de aviso/cupom (verde claro original) ficam num verde bem sutil */
+        body.dark-mode [style*="background-color: #d1edb0"] {
+            background-color: #162e22 !important;
+            background: #162e22 !important;
+        }
+
+        /* 4. TEXTOS GLOBAIS DO CONTEÚDO (Ficam brancos/cinza claro sobre o fundo cinza da barra de pesquisa) */
+        body.dark-mode h1,
+        body.dark-mode h2,
+        body.dark-mode h3,
+        body.dark-mode p,
+        body.dark-mode span,
+        body.dark-mode a,
+        body.dark-mode [style*="color: #2c2c2c"],
+        body.dark-mode [style*="color: #333"],
+        body.dark-mode [style*="color: #000000"],
+        body.dark-mode [style*="color: #1a1a1a"] {
+            color: #f0f0f0 !important;
+        }
+
+        body.dark-mode [style*="color: #666"],
+        body.dark-mode [style*="color: #888"],
+        body.dark-mode .text-muted {
+            color: #b8b8b8 !important;
+        }
+    </style>
 </head>
 <body class="home-body {% if request.session.dark_mode %}dark-mode{% endif %}">
 
@@ -29,7 +138,7 @@
                 <img src="{% static 'IMG/menu.png' %}" alt="Início" width="24" height="24"> Início
             </a>
             <a href="{% url 'acervo_view' %}" class="nav-item">
-                <img src="{% static 'IMG/acervo.png' %}" alt="Meu Acervo" width="24" height="24"> Meu Acerto
+                <img src="{% static 'IMG/acervo.png' %}" alt="Meu Acervo" width="24" height="24"> Meu Acervo
             </a>
             <a href="{% url 'carrinho_view' %}" class="nav-item">
                 <img src="{% static 'IMG/carrinho.png' %}" alt="Carrinho" width="24" height="24"> Carrinho
