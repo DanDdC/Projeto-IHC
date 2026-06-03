@@ -152,3 +152,12 @@ def livraria_detail_view(request, livraria_id):
         'livros_hqs': livros_hqs,
     }
     return render(request, 'livraria_detail.html', context) 
+
+def perfil_view(request):
+    context = {
+        'nome_completo': "João Herique Guedes Alcoforado",
+        'endereco_entrega': "Rua do Molestamento - Imbiribeira, Recife - PE",
+        'foto_perfil_url': "https://via.placeholder.com/150" 
+    }
+    
+    return render(request, 'perfil.html', context)
