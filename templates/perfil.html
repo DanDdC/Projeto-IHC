@@ -12,7 +12,7 @@
         --bg-item-hover: #f7f7f7;
     }
 
-    /* O SEGREDO: Quando o body tiver a classe .dark-mode, as variáveis mudam de valor! */
+    /* Quando o body tiver a classe .dark-mode, as variáveis mudam de valor! */
     body.dark-mode {
         --text-dark: #f5f5f5;
         --text-muted: #b0b0b0;
@@ -60,14 +60,17 @@
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
     }
 
-    /* Ajuste suave no card de endereço durante o modo escuro para não queimar os olhos */
+    /* Ajuste suave no card de endereço durante o modo escuro */
     body.dark-mode .address-card {
         background-color: var(--primary-green);
         color: #ffffff;
     }
 
-    .address-card i {
-        font-size: 2.2rem;
+    /* Configuração do ícone PNG do endereço */
+    .address-card .menu-icon {
+        width: 32px;
+        height: 32px;
+        object-fit: contain;
     }
 
     .address-info h2 {
@@ -107,11 +110,12 @@
         outline: none;
     }
 
-    .menu-item i, .toggle-item i {
-        font-size: 1.4rem;
-        width: 28px;
-        text-align: center;
-        color: var(--text-dark); /* Mudando para var para acompanhar o modo escuro */
+    /* REGRA DAS IMAGENS PNG: Controla o tamanho dos seus novos ícones */
+    .menu-item .menu-icon, .toggle-item .menu-icon {
+        width: 24px;
+        height: 24px;
+        object-fit: contain;
+        display: block;
     }
 
     .menu-item span, .toggle-item span {
@@ -172,7 +176,7 @@
 <main>
     <section class="address-section">
         <div class="address-card">
-            <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+            <img src="{% static 'IMG/menu.png' %}" alt="Localização" class="menu-icon">
             <div class="address-info">
                 <h2>ENDEREÇO DE ENTREGA</h2>
                 <p>{{ endereco_entrega }}</p>
@@ -182,16 +186,17 @@
 
     <nav class="profile-menu" aria-label="Menu do perfil">
         <a href="#notificacoes" class="menu-item">
-            <i class="fa-regular fa-bell" aria-hidden="true"></i>
+            <img src="{% static 'IMG/notificacoes.png' %}" alt="Notificações" class="menu-icon">
             <span>Notificações</span>
         </a>
+        
         <a href="#configuracoes" class="menu-item">
-            <i class="fa-solid fa-gear" aria-hidden="true"></i>
+            <img src="{% static 'IMG/config.png' %}" alt="Configurações" class="menu-icon">
             <span>Configurações</span>
         </a>
 
         <div class="toggle-item">
-            <i class="fa-regular fa-moon" aria-hidden="true"></i>
+            <img src="{% static 'IMG/modescuro.png' %}" alt="Modo Escuro" class="menu-icon">
             <span>Modo Escuro</span>
             <label class="switch">
                 <input type="checkbox" id="dark-mode-toggle" {% if request.session.dark_mode %}checked{% endif %}>
@@ -200,15 +205,17 @@
         </div>
 
         <a href="#dados-pessoais" class="menu-item">
-            <i class="fa-regular fa-id-card" aria-hidden="true"></i>
+            <img src="{% static 'IMG/cartaodecrebito.png' %}" alt="Dados pessoais" class="menu-icon">
             <span>Dados pessoais</span>
         </a>
+        
         <a href="#pagamentos" class="menu-item">
-            <i class="fa-regular fa-credit-card" aria-hidden="true"></i>
+            <img src="{% static 'IMG/pagamentos.png' %}" alt="Pagamentos" class="menu-icon">
             <span>Pagamentos</span>
         </a>
+        
         <a href="#suporte" class="menu-item">
-            <i class="fa-solid fa-headset" aria-hidden="true"></i>
+            <img src="{% static 'IMG/sup.png' %}" alt="Suporte" class="menu-icon">
             <span>Suporte</span>
         </a>
     </nav>
