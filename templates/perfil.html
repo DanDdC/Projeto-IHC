@@ -9,7 +9,7 @@
         --text-dark: #1a1a1a;
         --text-muted: #555555;
         --bg-white: #ffffff;
-        --bg-item-hover: #f7f7f7;
+        --bg-item-hover: #a8a8a8;
     }
 
     /* Quando o body tiver a classe .dark-mode, as variáveis mudam de valor! */
@@ -166,6 +166,42 @@
     input:checked + .slider:before {
         transform: translateX(20px);
     }
+
+    .submenu-container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .submenu-options {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease-out;
+        padding-left: 50px; /* Alinha com o texto acima */
+        background-color: var(--bg-item-hover);
+        border-radius: 0 0 8px 8px;
+    }
+
+    .submenu-options.active {
+        max-height: 120px;
+        padding-bottom: 10px;
+    }
+
+    .submenu-item {
+        display: block;
+        padding: 10px 0;
+        text-decoration: none;
+        color: var(--text-dark);
+        font-size: 0.9rem;
+        opacity: 0.8;
+    }
+
+    .seta-submenu {
+        transition: transform 0.3s ease;
+    }
+    
+    .submenu-container.aberto .seta-submenu {
+        transform: rotate(180deg);
+    }
 </style>
 
 <header class="profile-header">
@@ -214,10 +250,22 @@
             <span>Pagamentos</span>
         </a>
         
-        <a href="#suporte" class="menu-item">
-            <img src="{% static 'IMG/sup.png' %}" alt="Suporte" class="menu-icon">
-            <span>Suporte</span>
-        </a>
+        <div class="submenu-container">
+            <div class="menu-item" id="suporte-toggle" style="cursor: pointer;">
+                <img src="{% static 'IMG/sup.png' %}" alt="Suporte" class="menu-icon">
+                <span>Suporte</span>
+                <i class="fa-solid fa-chevron-down seta-submenu" style="margin-left: auto; font-size: 0.8rem;"></i>
+            </div>
+            
+            <div class="submenu-options" id="suporte-options">
+                <a href="#conversar" class="submenu-item">
+                    <span>Conversar com suporte</span>
+                </a>
+                <a href="#faq" class="submenu-item">
+                    <span>Perguntas frequentes</span>
+                </a>
+            </div>
+        </div>
     </nav>
 </main>
 
@@ -244,5 +292,16 @@
             });
         }
     });
+    
+    const suporteToggle = document.getElementById('suporte-toggle');
+        const suporteOptions = document.getElementById('suporte-options');
+        const submenuContainer = suporteToggle ? suporteToggle.closest('.submenu-container') : null;
+
+        if (suporteToggle && suporteOptions) {
+            suporteToggle.addEventListener('click', () => {
+                suporteOptions.classList.toggle('active');
+                submenuContainer.classList.toggle('aberto');
+            });
+        }
 </script>
 {% endblock %}
