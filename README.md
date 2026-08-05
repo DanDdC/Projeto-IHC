@@ -55,7 +55,7 @@ Se deseja testar a GekkoTeca na sua própria máquina, siga os passos abaixo:
 
 1. **Clone o repositório:**
    ```bash
-   git clone [https://github.com/SEU_USUARIO/Projeto-IHC.git](https://github.com/SEU_USUARIO/Projeto-IHC.git)
+   git clone [https://github.com/DanDdC/Projeto-IHC.git](https://github.com/DanDdC/Projeto-IHC.git)
    cd Projeto-IHC
 
 2. **Crie e ative um ambiente virtual:**
