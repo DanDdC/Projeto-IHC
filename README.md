@@ -88,5 +88,5 @@ Arhur Vitorino
 Daniel Donaire  
 João Rafael Alcoforado  
 Juan Riquelme  
-Kelwin Karan
+Kelwin Karan  
 Victor Carraly
